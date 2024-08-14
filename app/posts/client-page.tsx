@@ -45,7 +45,7 @@ export default function PostsClientPage(props: { data: PostConnectionQuery; vari
                   </div>
                 </div>
                 <div className="card-actions justify-end">
-                  <button className={`btn btn-primary`}>Read More</button>
+                  <button className={`btn btn-primary text-white`}>Read More</button>
                 </div>
               </div>
             </Link>
