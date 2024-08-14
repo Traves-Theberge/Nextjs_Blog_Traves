@@ -1,13 +1,11 @@
 import { tinaField } from "tinacms/dist/react";
-import { Page } from "../../tina/__generated__/types/Page";
-
-type PageQuery = { page: Page };
+import { Page } from "../../tina/__generated__/types";
 
 import { Hero } from "./hero";
 import { Content } from "./content";
 import { useTheme } from "next-themes";
 
-export const Blocks = (props: Pick<PageQuery['page'], 'blocks'>) => {
+export const Blocks = (props: Pick<Page, 'blocks'>) => {
   const { theme } = useTheme();
 
   return (

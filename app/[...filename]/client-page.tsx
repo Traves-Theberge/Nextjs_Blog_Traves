@@ -1,11 +1,11 @@
 "use client";
 import { useTina } from "tinacms/dist/react";
 import { Blocks } from "../../components/blocks";
-import { PageQuery } from "../../.tina/__generated__/types"; // Note the dot before 'tina'
 import { useTheme } from "next-themes";
+import { Page } from "@/.tina/__generated__/types";
 
 interface ClientPageProps {
-  data: PageQuery;
+  data: Page;
   variables: {
     relativePath: string;
   };

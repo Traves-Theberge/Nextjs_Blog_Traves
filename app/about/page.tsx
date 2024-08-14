@@ -1,15 +1,25 @@
 "use client";
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from '../../components/layout/layout';
 import { useTheme } from 'next-themes';
 
 export default function AboutPage() {
-  const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  const { resolvedTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <Layout>
-      <div className={`${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+      <div className={`${resolvedTheme === 'dark' ? 'text-white' : 'text-black'}`}>
+        {/* Your about page content */}
       </div>
     </Layout>
   );
