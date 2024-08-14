@@ -1,5 +1,19 @@
-fragment LayoutQueryFragment on Query {
+fragment UniqueLayoutQueryFragment on Query {
   global(relativePath: "index.json") {
-    ...GlobalParts
+    ... on Global {
+      header {
+        name
+        color
+        nav {
+          href
+          label
+        }
+      }
+      theme {
+        color
+        font
+        darkMode
+      }
+    }
   }
 }

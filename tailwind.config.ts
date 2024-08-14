@@ -1,5 +1,6 @@
 import colors from "tailwindcss/colors";
 import { fontFamily } from "tailwindcss/defaultTheme";
+import daisyui from 'daisyui'
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -12,49 +13,8 @@ module.exports = {
       current: "currentColor",
       black: colors.black,
       white: colors.white,
-      teal: colors.cyan,
-      green: colors.emerald,
-      red: colors.rose,
-      purple: colors.purple,
-      pink: colors.pink,
-      yellow: colors.yellow,
-      gray: {
-        50: "#F6F6F9",
-        100: "#EDECF3",
-        150: "#E6E3EF",
-        200: "#E1DDEC",
-        250: "#C9C5D5",
-        300: "#b2adbe",
-        400: "#918c9e",
-        500: "#716c7f",
-        600: "#565165",
-        700: "#433e52",
-        800: "#363145",
-        900: "#252336",
-        1000: "#1c1b2e",
-      },
-      blue: {
-        50: "#DCEEFF",
-        100: "#B4DBFF",
-        200: "#85C5FE",
-        300: "#4EABFE",
-        400: "#2296fe",
-        500: "#0084FF",
-        600: "#0574e4",
-        700: "#0D5DBD",
-        800: "#144696",
-        900: "#1D2C6C",
-        1000: "#241748",
-      },
-      orange: {
-        200: "#EB7752",
-        300: "#EA6C45",
-        400: "#E85C30",
-        500: "#EC4815",
-        600: "#DC4419",
-        700: "#D04017",
-        800: "#C1360F",
-      },
+      gray: colors.gray,
+      blue: colors.blue,
     },
     screens: {
       sm: "600px",
@@ -107,6 +67,19 @@ module.exports = {
       typography: (theme) => ({
         DEFAULT: {
           css: {
+            color: theme("colors.gray.700"),
+            h1: { color: theme("colors.gray.900") },
+            h2: { color: theme("colors.gray.900") },
+            h3: { color: theme("colors.gray.900") },
+            h4: { color: theme("colors.gray.900") },
+            h5: { color: theme("colors.gray.900") },
+            blockquote: { color: theme("colors.gray.700") },
+            a: { 
+              color: theme("colors.blue.600"),
+              '&:hover': {
+                color: theme("colors.blue.700"),
+              },
+            },
             pre: {
               color: theme("colors.gray.700"),
               backgroundColor: theme("colors.gray.100"),
@@ -159,34 +132,24 @@ module.exports = {
         },
         dark: {
           css: {
-            color: theme("colors.gray.200"),
-            '[class~="lead"]': { color: theme("colors.gray.400") },
-            a: { color: theme("colors.gray.100") },
-            strong: { color: theme("colors.gray.100") },
-            "ul > li::before": { backgroundColor: theme("colors.gray.700") },
-            hr: { borderColor: theme("colors.gray.800") },
-            blockquote: {
-              color: theme("colors.gray.100"),
-              borderLeftColor: theme("colors.gray.800"),
-            },
+            color: theme("colors.gray.300"),
+            p: { color: theme("colors.gray.300") },
             h1: { color: theme("colors.gray.100") },
             h2: { color: theme("colors.gray.100") },
             h3: { color: theme("colors.gray.100") },
             h4: { color: theme("colors.gray.100") },
-            code: {
-              color: theme("colors.gray.100"),
-              backgroundColor: theme("colors.gray.1000"),
+            h5: { color: theme("colors.gray.100") },
+            blockquote: { color: theme("colors.gray.300") },
+            a: { 
+              color: theme("colors.blue.400"),
+              '&:hover': {
+                color: theme("colors.blue.300"),
+              },
             },
-            "a code": { color: theme("colors.gray.100") },
             pre: {
               color: theme("colors.gray.200"),
               backgroundColor: theme("colors.gray.900"),
             },
-            thead: {
-              color: theme("colors.gray.100"),
-              borderBottomColor: theme("colors.gray.700"),
-            },
-            "tbody tr": { borderBottomColor: theme("colors.gray.800") },
           },
         },
         primary: {
@@ -224,28 +187,9 @@ module.exports = {
       }),
     },
   },
-  plugins: [require("@tailwindcss/typography"), require("daisyui")],
+  plugins: [require("@tailwindcss/typography"), daisyui],
   daisyui: {
-    themes: [
-      {
-        light: {
-          ...require("daisyui/src/theming/themes")["[data-theme=light]"],
-          primary: "#0084FF",
-          secondary: "#EC4815",
-          accent: "#EA6C45",
-          neutral: "#716c7f",
-          "base-100": "#F6F6F9",
-        },
-        dark: {
-          ...require("daisyui/src/theming/themes")["[data-theme=dark]"],
-          primary: "#0084FF",
-          secondary: "#EC4815",
-          accent: "#EA6C45",
-          neutral: "#716c7f",
-          "base-100": "#252336",
-        },
-      },
-    ],
+    themes: ["light", "dark"],
   },
   variants: {
     extend: { typography: ["tint", "dark", "primary"] },

@@ -14,7 +14,7 @@ const Author: Collection = {
       required: true,
     },
     {
-      type: "image",
+      type: "string",
       label: "Avatar",
       name: "avatar",
     },

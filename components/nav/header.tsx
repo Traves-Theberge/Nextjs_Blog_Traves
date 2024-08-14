@@ -1,43 +1,39 @@
 "use client";
 
-import React from "react";
-import NavItems from "./nav-items";
-import { useLayout } from "../layout/layout-context";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { Container } from "../layout/container";
-import { Icon } from "../icon";
 import { ThemeSwitcher } from "../theme-switcher";
-
-const headerColor = {
-  default:
-    "text-black dark:text-white from-gray-50 to-white dark:from-gray-800 dark:to-gray-900",
-};
+import { useTheme } from "next-themes";
 
 export const Header = () => {
-  const { globalSettings } = useLayout();
-  const header = globalSettings?.header || {};
+  const [mounted, setMounted] = useState(false);
+  const { theme, resolvedTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
+
+  const currentTheme = theme === 'system' ? resolvedTheme : theme;
 
   return (
-    <div className="bg-base-100 shadow-sm">
-      <Container size="custom" className="navbar">
-        <div className="flex-1">
-          <Link href="/" className="btn btn-ghost text-xl">
-            <Icon
-              parentColor={header.color}
-              data={{
-                name: header?.icon?.name,
-                color: header?.icon?.color,
-                style: header?.icon?.style,
-              }}
-            />
-            <span>{header?.name}</span>
-          </Link>
-        </div>
-        <div className="flex-none">
-          <NavItems />
-          <ThemeSwitcher />
-        </div>
-      </Container>
-    </div>
+    <header className={`navbar shadow-lg ${currentTheme === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'}`}>
+      <div className="navbar-start">
+        <Link href="/" className="btn btn-ghost normal-case text-xl">Your Logo</Link>
+      </div>
+      <div className="navbar-center hidden lg:flex">
+        <ul className="menu menu-horizontal px-1">
+          <li><Link href="/">Home</Link></li>
+          <li><Link href="/about">About</Link></li>
+          <li><Link href="/posts">Blog</Link></li>
+        </ul>
+      </div>
+      <div className="navbar-end">
+        <ThemeSwitcher />
+      </div>
+    </header>
   );
 };

@@ -1,6 +1,6 @@
 import "../styles.css";
 import React from "react";
-import { ThemeProvider } from "../components/theme-provider";
+import { ThemeProvider } from "next-themes";
 import { Inter as FontSans, Lato, Nunito } from "next/font/google";
 import { cn } from "../lib/utils";
 import { Metadata } from "next";
@@ -51,16 +51,11 @@ export default async function RootLayout({
   const fontVariable = selectFont(global.theme.font);
 
   return (
-    <html lang="en" suppressHydrationWarning data-theme={global.theme.darkMode ? "dark" : "light"}>
+    <html lang="en" suppressHydrationWarning>
       <body
         className={cn("min-h-screen flex flex-col antialiased", fontVariable)}
       >
-        <ThemeProvider
-          attribute="data-theme"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <ThemeProvider attribute="class">
           {children}
         </ThemeProvider>
       </body>

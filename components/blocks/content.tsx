@@ -1,27 +1,13 @@
 "use client";
 import React from "react";
-
+import { Template } from "tinacms";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
-import type { Template } from "tinacms";
-import { PageBlocksContent } from "../../tina/__generated__/types";
-import { tinaField } from "tinacms/dist/react";
-import { Container } from "../layout/container";
-import { Section } from "../layout/section";
 
-export const Content = ({ data }: { data: PageBlocksContent }) => {
+export const Content = ({ data }) => {
   return (
-    <Section color={data.color}>
-      <Container
-        className={`prose prose-lg ${
-          data.color === "primary" ? `prose-primary` : `dark:prose-dark`
-        }`}
-        data-tina-field={tinaField(data, "body")}
-        size="large"
-        width="medium"
-      >
-        <TinaMarkdown content={data.body} />
-      </Container>
-    </Section>
+    <div className="prose dark:prose-invert max-w-none w-full text-gray-900 dark:text-gray-100">
+      <TinaMarkdown content={data.body} />
+    </div>
   );
 };
 

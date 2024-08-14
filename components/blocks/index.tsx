@@ -1,13 +1,17 @@
 import { tinaField } from "tinacms/dist/react";
-import { Page, PageBlocks } from "../../tina/__generated__/types";
+import { Page } from "../../tina/__generated__/types/Page";
+
+type PageQuery = { page: Page };
+
 import { Hero } from "./hero";
 import { Content } from "./content";
-import { Features } from "./features";
-import { Testimonial } from "./testimonial";
+import { useTheme } from "next-themes";
 
-export const Blocks = (props: Omit<Page, "id" | "_sys" | "_values">) => {
+export const Blocks = (props: Pick<PageQuery['page'], 'blocks'>) => {
+  const { theme } = useTheme();
+
   return (
-    <>
+    <div>
       {props.blocks
         ? props.blocks.map(function (block, i) {
             return (
@@ -17,20 +21,16 @@ export const Blocks = (props: Omit<Page, "id" | "_sys" | "_values">) => {
             );
           })
         : null}
-    </>
+    </div>
   );
 };
 
-const Block = (block: PageBlocks) => {
+const Block = (block: any) => {
   switch (block.__typename) {
     case "PageBlocksHero":
       return <Hero data={block} />;
     case "PageBlocksContent":
       return <Content data={block} />;
-    case "PageBlocksFeatures":
-      return <Features data={block} />;
-    case "PageBlocksTestimonial":
-      return <Testimonial data={block} />;
     default:
       return null;
   }

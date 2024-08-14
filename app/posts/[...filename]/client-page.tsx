@@ -1,54 +1,32 @@
 "use client";
 import React from "react";
-import Image from "next/image";
-import { useLayout } from "../../../components/layout/layout-context";
-import { Section } from "../../../components/layout/section";
-import { Container } from "../../../components/layout/container";
-import { tinaField, useTina } from "tinacms/dist/react";
+import { TinaMarkdown } from "tinacms/dist/rich-text";
+import { useTina } from "tinacms/dist/react";
 import { format } from "date-fns";
 import { PostQuery } from "../../../tina/__generated__/types";
-import { TinaMarkdown } from "tinacms/dist/rich-text";
-import { components } from "../../../components/mdx-components";
+import { useTheme } from "next-themes";
 
-const titleColorClasses = {
-  blue: "from-blue-400 to-blue-600 dark:from-blue-300 dark:to-blue-500",
-  teal: "from-teal-400 to-teal-600 dark:from-teal-300 dark:to-teal-500",
-  green: "from-green-400 to-green-600",
-  red: "from-red-400 to-red-600",
-  pink: "from-pink-300 to-pink-500",
-  purple:
-    "from-purple-400 to-purple-600 dark:from-purple-300 dark:to-purple-500",
-  orange:
-    "from-orange-300 to-orange-600 dark:from-orange-200 dark:to-orange-500",
-  yellow:
-    "from-yellow-400 to-yellow-500 dark:from-yellow-300 dark:to-yellow-500",
-};
-
-interface ClientPostProps {
-  data: PostQuery;
-  variables: {
-    relativePath: string;
-  };
-  query: string;
-}
-
-const ClientPage: React.FC<ClientPostProps> = (props) => {
+export default function ClientPost(props: { data: PostQuery; variables: any; query: string }) {
   const { data } = useTina(props);
-  const { theme } = useLayout();
+  const post = data.post;
+  const { theme } = useTheme();
 
   return (
-    <article className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-4">{data.post.title}</h1>
-      <div className="text-sm text-base-content/70 mb-8">
-        {format(new Date(data.post.date), "MMMM dd, yyyy")}
-      </div>
-      <div className="prose dark:prose-invert max-w-none">
-        <TinaMarkdown content={data.post._body} components={components} />
+    <article className={`prose lg:prose-xl mx-auto p-4 ${theme === 'dark' ? 'prose-dark' : ''}`}>
+      <h1>{post.title}</h1>
+      <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+        {format(new Date(post.date), "MMMM dd, yyyy")}
+      </p>
+      {post.heroImg && (
+        <img
+          src={post.heroImg}
+          alt={post.title}
+          className="w-full h-64 object-cover rounded-lg shadow-lg"
+        />
+      )}
+      <div className={theme === 'dark' ? 'prose-dark' : ''}>
+        <TinaMarkdown content={post._body} />
       </div>
     </article>
   );
-};
-
-export default function PostClientPage(props: ClientPostProps) {
-  return <ClientPage {...props} />;
 }

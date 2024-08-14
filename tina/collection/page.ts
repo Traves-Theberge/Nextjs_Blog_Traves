@@ -1,7 +1,6 @@
-import type { Collection } from "tinacms";
+import type { Collection, Template } from "tinacms";
 import { heroBlockSchema } from "../../components/blocks/hero";
 import { contentBlockSchema } from "../../components/blocks/content";
-import { testimonialBlockSchema } from "../../components/blocks/testimonial";
 import { featureBlockSchema } from "../../components/blocks/features";
 
 const Page: Collection = {
@@ -33,11 +32,9 @@ const Page: Collection = {
       },
       templates: [
         heroBlockSchema,
-        //@ts-ignore
         featureBlockSchema,
         contentBlockSchema,
-        testimonialBlockSchema,
-      ],
+      ] as Template[],
     },
   ],
 };

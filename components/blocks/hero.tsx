@@ -2,14 +2,17 @@
 import * as React from "react";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
 import type { Template } from "tinacms";
-import { PageBlocksHero } from "../../tina/__generated__/types";
 import { tinaField } from "tinacms/dist/react";
 import Image from "next/image";
 import { Section } from "../layout/section";
 import { Container } from "../layout/container";
 import { Actions } from "./actions";
+import { useTheme } from "next-themes";
 
-export const Hero = ({ data }: { data: PageBlocksHero }) => {
+export const Hero = ({ data }: { data: any }) => {
+  const { theme } = useTheme();
+  const textColor = theme === 'dark' ? 'text-white' : 'text-black';
+
   const headlineColorClasses = {
     blue: "from-blue-400 to-blue-600",
     teal: "from-teal-400 to-teal-600",
@@ -25,13 +28,13 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
     <Section color={data.color}>
       <Container
         size="large"
-        className="grid grid-cols-1 md:grid-cols-5 gap-14 items-start justify-center"
+        className={`grid grid-cols-1 md:grid-cols-5 gap-14 items-start justify-center ${textColor}`}
       >
         <div className="row-start-2 md:row-start-1 md:col-span-5 text-center md:text-left">
           {data.tagline && (
             <h2
               data-tina-field={tinaField(data, "tagline")}
-              className="relative inline-block px-3 py-1 mb-8 text-md font-bold tracking-wide title-font z-20"
+              className="relative inline-block px-3 py-1 mb-8 text-md font-bold tracking-wide title-font z-20 dark:text-gray-200"
             >
               {data.tagline}
               <span className="absolute w-full h-full left-0 top-0 rounded-full -z-1 bg-current opacity-7"></span>

@@ -1,11 +1,16 @@
+"use client";
+
 import React from 'react';
 import Layout from '../../components/layout/layout';
+import { useTheme } from 'next-themes';
 
 export default function AboutPage() {
+  const { theme } = useTheme();
+
   return (
     <Layout>
-      <h1>About Us</h1>
-      <p>This is the about page built with Next.js</p>
+      <div className={`${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+      </div>
     </Layout>
   );
 }

@@ -1,67 +1,41 @@
 "use client";
-import {
-  PageBlocksFeatures,
-  PageBlocksFeaturesItems,
-} from "../../tina/__generated__/types";
 import { tinaField } from "tinacms/dist/react";
 import { Icon } from "../icon";
-import { Section } from "../layout/section";
-import { Container } from "../layout/container";
 import { iconSchema } from "../../tina/fields/icon";
 
-export const Feature = ({
-  featuresColor,
-  data,
-}: {
-  featuresColor: string;
-  data: PageBlocksFeaturesItems;
-}) => {
+const Feature = ({ data }) => {
   return (
-    <div
-      data-tina-field={tinaField(data)}
-      className="flex-1 flex flex-col gap-6 text-center items-center lg:items-start lg:text-left max-w-xl mx-auto"
-      style={{ flexBasis: "16rem" }}
-    >
-      {data.icon && (
-        <Icon
-          tinaField={tinaField(data, "icon")}
-          parentColor={featuresColor}
-          data={{ size: "large", ...data.icon }}
-        />
-      )}
-      {data.title && (
-        <h3
-          data-tina-field={tinaField(data, "title")}
-          className="text-2xl font-semibold title-font"
-        >
-          {data.title}
-        </h3>
-      )}
-      {data.text && (
-        <p
-          data-tina-field={tinaField(data, "text")}
-          className="text-base opacity-80 leading-relaxed"
-        >
-          {data.text}
-        </p>
-      )}
+    <div className="card w-96 bg-white dark:bg-gray-800 shadow-xl" data-tina-field={tinaField(data)}>
+      <figure className="px-10 pt-10">
+        {data.icon && (
+          <Icon
+            tinaField={tinaField(data, "icon")}
+            data={{ size: "large", ...data.icon }}
+          />
+        )}
+      </figure>
+      <div className="card-body items-center text-center">
+        {data.title && (
+          <h2 className="card-title text-gray-900 dark:text-white" data-tina-field={tinaField(data, "title")}>
+            {data.title}
+          </h2>
+        )}
+        {data.text && (
+          <p className="text-gray-900 dark:text-white" data-tina-field={tinaField(data, "text")}>{data.text}</p>
+        )}
+      </div>
     </div>
   );
 };
 
-export const Features = ({ data }: { data: PageBlocksFeatures }) => {
+export const Features = ({ data }) => {
   return (
-    <Section color={data.color}>
-      <Container
-        className={`flex flex-wrap gap-x-10 gap-y-8 text-left`}
-        size="large"
-      >
+    <div className="p-10 bg-base-200 dark:bg-gray-800">
+      <div className="flex flex-wrap justify-center gap-6">
         {data.items &&
-          data.items.map(function (block, i) {
-            return <Feature featuresColor={data.color} key={i} data={block} />;
-          })}
-      </Container>
-    </Section>
+          data.items.map((item, i) => <Feature key={i} data={item} />)}
+      </div>
+    </div>
   );
 };
 
