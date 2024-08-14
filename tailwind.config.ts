@@ -224,8 +224,30 @@ module.exports = {
       }),
     },
   },
+  plugins: [require("@tailwindcss/typography"), require("daisyui")],
+  daisyui: {
+    themes: [
+      {
+        light: {
+          ...require("daisyui/src/theming/themes")["[data-theme=light]"],
+          primary: "#0084FF",
+          secondary: "#EC4815",
+          accent: "#EA6C45",
+          neutral: "#716c7f",
+          "base-100": "#F6F6F9",
+        },
+        dark: {
+          ...require("daisyui/src/theming/themes")["[data-theme=dark]"],
+          primary: "#0084FF",
+          secondary: "#EC4815",
+          accent: "#EA6C45",
+          neutral: "#716c7f",
+          "base-100": "#252336",
+        },
+      },
+    ],
+  },
   variants: {
     extend: { typography: ["tint", "dark", "primary"] },
   },
-  plugins: [require("@tailwindcss/typography")],
 };

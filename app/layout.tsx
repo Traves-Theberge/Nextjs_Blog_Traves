@@ -51,15 +51,15 @@ export default async function RootLayout({
   const fontVariable = selectFont(global.theme.font);
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning data-theme={global.theme.darkMode ? "dark" : "light"}>
       <body
         className={cn("min-h-screen flex flex-col antialiased", fontVariable)}
       >
         <ThemeProvider
-          attribute="class"
+          attribute="data-theme"
           defaultTheme="system"
+          enableSystem
           disableTransitionOnChange
-          forcedTheme={global.theme.darkMode}
         >
           {children}
         </ThemeProvider>

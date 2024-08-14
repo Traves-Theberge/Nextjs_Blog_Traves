@@ -7,7 +7,7 @@ import { ThemeProvider } from "../theme-provider";
 import { useTina } from "tinacms/dist/react";
 
 export const Layout = ({
-  rawData = {},
+  rawData,
   children,
 }: {
   rawData?: any;
@@ -17,14 +17,21 @@ export const Layout = ({
     query: rawData?.query,
     variables: rawData?.variables,
     data: rawData,
-  });
+  }) || { data: null };
+
+  const globalTheme = tinaData?.global?.theme?.darkMode || 'system';
 
   return (
     <ThemeProvider
-      attribute="class"
+      attribute="data-theme"
       defaultTheme="system"
+      enableSystem
       disableTransitionOnChange
-      forcedTheme={tinaData?.global?.theme?.darkMode}
+      value={{
+        light: "light",
+        dark: "dark",
+        system: "system",
+      }}
     >
       <div className="flex flex-col min-h-screen">
         <Header />

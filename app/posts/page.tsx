@@ -3,15 +3,27 @@ import client from "../../tina/__generated__/client";
 import PostsClientPage from "./client-page";
 
 export default async function PostsPage() {
-  const posts = await client.queries.postConnection();
+  try {
+    const posts = await client.queries.postConnection();
 
-  if (!posts) {
-    return null;
+    if (!posts) {
+      throw new Error("No posts found");
+    }
+
+    return (
+      <Layout rawData={posts}>
+        <PostsClientPage {...posts} />
+      </Layout>
+    );
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+    return (
+      <Layout>
+        <div className="container mx-auto px-4 py-8">
+          <h1 className="text-4xl font-bold mb-8">Error</h1>
+          <p>An error occurred while fetching posts. Please try again later.</p>
+        </div>
+      </Layout>
+    );
   }
-
-  return (
-    <Layout rawPageData={posts.data}>
-      <PostsClientPage {...posts} />
-    </Layout>
-  );
 }

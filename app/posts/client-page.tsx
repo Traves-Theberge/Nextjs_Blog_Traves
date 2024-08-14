@@ -29,64 +29,40 @@ interface ClientPostProps {
 }
 
 export default function PostsClientPage(props: ClientPostProps) {
-  const { data } = useTina({ ...props });
+  const { data } = useTina(props);
   const { theme } = useLayout();
 
   return (
-    <>
-      {data?.postConnection.edges.map((postData) => {
-        const post = postData.node;
-        const date = new Date(post.date);
-        let formattedDate = "";
-        if (!isNaN(date.getTime())) {
-          formattedDate = format(date, "MMM dd, yyyy");
-        }
-        return (
-          <Link
-            key={post.id}
-            href={`/posts/` + post._sys.breadcrumbs.join("/")}
-            className="group block px-6 sm:px-8 md:px-10 py-10 mb-8 last:mb-0 bg-gray-50 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-1000 rounded-md shadow-sm transition-all duration-150 ease-out hover:shadow-md hover:to-gray-50 dark:hover:to-gray-800"
-          >
-            <h3
-              className={`text-gray-700 dark:text-white text-3xl lg:text-4xl font-semibold title-font mb-5 transition-all duration-150 ease-out ${
-                titleColorClasses[theme.color]
-              }`}
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-4xl font-bold mb-8">Blog Posts</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {data?.postConnection.edges.map((postData) => {
+          const post = postData.node;
+          const date = new Date(post.date);
+          let formattedDate = "";
+          if (!isNaN(date.getTime())) {
+            formattedDate = format(date, "MMM dd, yyyy");
+          }
+          return (
+            <Link
+              key={post.id}
+              href={`/posts/` + post._sys.breadcrumbs.join("/")}
+              className="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300"
             >
-              {post.title}{" "}
-              <span className="inline-block opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out">
-                <BsArrowRight className="inline-block h-8 -mt-1 ml-1 w-auto opacity-70" />
-              </span>
-            </h3>
-            <div className="prose dark:prose-dark w-full max-w-none mb-5 opacity-70">
-              <TinaMarkdown content={post.excerpt} />
-            </div>
-            <div className="flex items-center">
-              <div className="flex-shrink-0 mr-2">
-                <Image
-                  width={500}
-                  height={500}
-                  className="h-10 w-10 object-cover rounded-full shadow-sm"
-                  src={post?.author?.avatar}
-                  alt={post?.author?.name}
-                />
+              <div className="card-body">
+                <h2 className="card-title text-2xl mb-2">{post.title}</h2>
+                <p className="text-sm text-base-content/70 mb-4">{formattedDate}</p>
+                <div className="prose dark:prose-invert">
+                  <TinaMarkdown content={post.excerpt} />
+                </div>
+                <div className="card-actions justify-end mt-4">
+                  <button className="btn btn-primary btn-sm">Read More</button>
+                </div>
               </div>
-              <p className="text-base font-medium text-gray-600 group-hover:text-gray-800 dark:text-gray-200 dark:group-hover:text-white">
-                {post?.author?.name}
-              </p>
-              {formattedDate !== "" && (
-                <>
-                  <span className="font-bold text-gray-200 dark:text-gray-500 mx-2">
-                    —
-                  </span>
-                  <p className="text-base text-gray-400 group-hover:text-gray-500 dark:text-gray-300 dark:group-hover:text-gray-150">
-                    {formattedDate}
-                  </p>
-                </>
-              )}
-            </div>
-          </Link>
-        );
-      })}
-    </>
+            </Link>
+          );
+        })}
+      </div>
+    </div>
   );
 }

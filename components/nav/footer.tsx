@@ -7,7 +7,6 @@ import { Icon } from "../icon";
 import { FaFacebookF, FaGithub, FaTwitter } from "react-icons/fa";
 import { AiFillInstagram } from "react-icons/ai";
 import { useLayout } from "../layout/layout-context";
-import { RawRenderer } from "../raw-renderer";
 
 export const Footer = () => {
   const { theme, globalSettings, pageData } = useLayout();
@@ -130,7 +129,6 @@ export const Footer = () => {
               </a>
             )}
           </div>
-          <RawRenderer parentColor={footer.color} rawData={pageData} />
         </div>
         <div
           className={cn(

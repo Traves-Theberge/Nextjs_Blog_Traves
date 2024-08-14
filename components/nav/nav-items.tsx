@@ -34,7 +34,6 @@ const activeBackgroundClasses = {
 
 export default function NavItems() {
   const currentPath = usePathname();
-  const { theme } = useLayout();
 
   const navItems = [
     { label: "Home", href: "/" },
@@ -43,31 +42,17 @@ export default function NavItems() {
   ];
 
   return (
-    <ul className="flex gap-6 sm:gap-8 lg:gap-10 tracking-[.002em] -mx-4">
-      {navItems.map((item) => {
-        return (
-          <li
-            key={item.href}
-            className={
-              currentPath === item.href
-                ? activeItemClasses[theme.color]
-                : ""
-            }
+    <ul className="menu menu-horizontal px-1">
+      {navItems.map((item) => (
+        <li key={item.href}>
+          <Link
+            href={item.href}
+            className={currentPath === item.href ? "active" : ""}
           >
-            <Link
-              href={item.href}
-              className={`relative select-none text-base inline-block tracking-wide transition duration-150 ease-out hover:opacity-100 py-8 px-4`}
-            >
-              {item.label}
-              {currentPath === item.href && (
-                <NavActive
-                  backgroundColor={activeBackgroundClasses[theme.color]}
-                />
-              )}
-            </Link>
-          </li>
-        );
-      })}
+            {item.label}
+          </Link>
+        </li>
+      ))}
     </ul>
   );
 }

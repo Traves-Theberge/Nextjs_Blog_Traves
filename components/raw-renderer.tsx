@@ -8,46 +8,35 @@ import {
 } from "@headlessui/react";
 import { useLayout } from "./layout/layout-context";
 
-export const RawRenderer = ({ rawData, parentColor }) => {
-  const { theme } = useLayout();
-  const buttonColorClasses = {
-    blue: "text-blue-500",
-    teal: "text-teal-500",
-    green: "text-green-500",
-    red: "text-red-500",
-    pink: "text-pink-500",
-    purple: "text-purple-500",
-    orange: "text-orange-500",
-    yellow: "text-yellow-600",
-  };
+export const RawRenderer = ({ rawData }: { rawData: any }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const { theme } = useLayout();
 
-  function closeModal() {
-    setIsOpen(false);
-  }
+  const closeModal = () => setIsOpen(false);
+  const openModal = () => setIsOpen(true);
 
-  function openModal() {
-    setIsOpen(true);
-  }
+  const safeStringify = (obj: any) => {
+    try {
+      return JSON.stringify(obj, null, 2);
+    } catch (error) {
+      console.error("Error stringifying raw data:", error);
+      return "Error: Unable to display raw data";
+    }
+  };
 
   return (
     <>
       <button
-        type="button"
         onClick={openModal}
-        className={`z-10 relative flex items-center px-5 py-2 mx-3 my-2 font-semibold text-sm transition duration-150 ease-out rounded transform focus:shadow-outline focus:outline-none whitespace-nowrap opacity-80 hover:opacity-100 shadow-md ${
-          buttonColorClasses[theme.color]
+        className={`opacity-70 hover:opacity-100 transition duration-150 ease-out font-bold py-2 px-4 rounded-lg ${
+          theme.color === "primary" || theme.color === "dark"
+            ? "text-white bg-gray-800 hover:bg-gray-700"
+            : "text-gray-800 bg-gray-200 hover:bg-gray-300"
         }`}
       >
         View Raw Data
-        <span
-          className={`absolute w-full h-full left-0 top-0 rounded -z-1 ${
-            parentColor === "primary"
-              ? `bg-white opacity-80`
-              : `bg-current opacity-15`
-          }`}
-        ></span>
       </button>
+
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
@@ -80,7 +69,7 @@ export const RawRenderer = ({ rawData, parentColor }) => {
             >
               <div className="flex-1 w-full prose dark:prose-dark max-w-3xl p-6 overflow-hidden text-left align-middle transition-all transform bg-white dark:bg-gray-1000 shadow-xl rounded-xl inline-flex flex-col max-h-full">
                 <pre className="flex-1 overflow-y-auto">
-                  <code>{JSON.stringify(rawData, null, 2)}</code>
+                  <code>{safeStringify(rawData)}</code>
                 </pre>
                 <button
                   type="button"
