@@ -24,14 +24,14 @@ const headerColor = {
   },
 };
 
-export default function Header() {
+export const Header = () => {
   const { globalSettings, theme } = useLayout();
-  const header = globalSettings.header;
+  const header = globalSettings?.header || {};
 
   const headerColorCss =
     header.color === "primary"
-      ? headerColor.primary[theme.color]
-      : headerColor.default;
+      ? "text-primary"
+      : "text-gray-800 dark:text-gray-100";
 
   return (
     <div
@@ -46,19 +46,19 @@ export default function Header() {
             >
               <Icon
                 tinaField={tinaField(header, "icon")}
-                parentColor={header.color}
+                parentColor={header?.color}
                 data={{
-                  name: header.icon.name,
-                  color: header.icon.color,
-                  style: header.icon.style,
+                  name: header?.icon?.name,
+                  color: header?.icon?.color,
+                  style: header?.icon?.style,
                 }}
               />{" "}
               <span data-tina-field={tinaField(header, "name")}>
-                {header.name}
+                {header?.name}
               </span>
             </Link>
           </h4>
-          <NavItems navs={header.nav} />
+          <NavItems />
         </div>
         <div
           className={cn(

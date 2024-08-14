@@ -32,28 +32,34 @@ const activeBackgroundClasses = {
   yellow: "text-yellow-500",
 };
 
-export default function NavItems({ navs }: { navs: any }) {
+export default function NavItems() {
   const currentPath = usePathname();
   const { theme } = useLayout();
+
+  const navItems = [
+    { label: "Home", href: "/" },
+    { label: "About", href: "/about" },
+    { label: "Blog", href: "/posts" },
+  ];
+
   return (
     <ul className="flex gap-6 sm:gap-8 lg:gap-10 tracking-[.002em] -mx-4">
-      {navs.map((item) => {
+      {navItems.map((item) => {
         return (
           <li
             key={item.href}
             className={
-              currentPath === `/${item.href}`
+              currentPath === item.href
                 ? activeItemClasses[theme.color]
                 : ""
             }
           >
             <Link
-              data-tina-field={tinaField(item, "label")}
-              href={`/${item.href}`}
-              className={`relative select-none	text-base inline-block tracking-wide transition duration-150 ease-out hover:opacity-100 py-8 px-4`}
+              href={item.href}
+              className={`relative select-none text-base inline-block tracking-wide transition duration-150 ease-out hover:opacity-100 py-8 px-4`}
             >
               {item.label}
-              {currentPath === `/${item.href}` && (
+              {currentPath === item.href && (
                 <NavActive
                   backgroundColor={activeBackgroundClasses[theme.color]}
                 />

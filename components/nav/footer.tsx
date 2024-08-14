@@ -9,9 +9,10 @@ import { AiFillInstagram } from "react-icons/ai";
 import { useLayout } from "../layout/layout-context";
 import { RawRenderer } from "../raw-renderer";
 
-export default function Footer() {
+export const Footer = () => {
   const { theme, globalSettings, pageData } = useLayout();
-  const footer = globalSettings?.footer;
+  const footer = globalSettings?.footer || {};
+  const headerIcon = globalSettings?.header?.icon || {};
 
   const socialIconClasses = "h-7 w-auto";
   const socialIconColorClasses = {
@@ -55,14 +56,14 @@ export default function Footer() {
             className="group mx-2 flex items-center font-bold tracking-tight text-gray-400 dark:text-gray-300 opacity-50 hover:opacity-100 transition duration-150 ease-out whitespace-nowrap"
           >
             <Icon
-              parentColor={footer.color}
+              parentColor={footer.color || 'default'}
               data={{
-                name: globalSettings?.header.icon.name,
+                name: headerIcon.name,
                 color:
                   theme.color === "primary"
                     ? "primary"
-                    : globalSettings?.header.icon.color,
-                style: globalSettings?.header.icon.style,
+                    : headerIcon.color || 'default',
+                style: headerIcon.style,
               }}
               className="inline-block h-10 w-auto group-hover:text-orange-500"
             />
