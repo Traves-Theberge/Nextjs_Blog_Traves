@@ -26,7 +26,7 @@ export const Header = () => {
   }, []);
 
   return (
-    <header className={`navbar ${currentTheme === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'}`}>
+    <header className={`navbar ${currentTheme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}>
       <div className="navbar-start">
         <Link href="/" className="btn btn-ghost text-xl">Your Logo</Link>
       </div>
