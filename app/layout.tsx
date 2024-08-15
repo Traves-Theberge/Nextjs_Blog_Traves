@@ -23,8 +23,8 @@ const lato = Lato({
 });
 
 export const metadata: Metadata = {
-  title: "Tina",
-  description: "Tina Cloud Starter",
+  title: "Traves Theberge Blog",
+  description: "Blog about my journey towards becoming a software developer",
 };
 
 export default async function RootLayout({
@@ -52,10 +52,28 @@ export default async function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            (function() {
+              try {
+                var mode = localStorage.getItem('theme');
+                var supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+                if (!mode && supportDarkMode)  document.documentElement.classList.add('dark');
+                if (!mode) return;
+                document.documentElement.classList.add(mode);
+              } catch (e) {}
+            })();
+          `
+        }} />
+      </head>
       <body
-        className={cn("min-h-screen flex flex-col antialiased", fontVariable)}
+        className={cn(
+          "min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-300",
+          fontVariable
+        )}
       >
-        <ThemeProvider attribute="class">
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}
         </ThemeProvider>
       </body>

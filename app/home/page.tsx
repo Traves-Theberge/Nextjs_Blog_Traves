@@ -1,11 +1,13 @@
 import React from 'react';
 import Layout from '../../components/layout/layout';
+import WelcomeAnimation from '@/components/WelcomeAnimation';
 
 export default function HomePage() {
   return (
     <Layout>
-      <h1>Welcome to Our Blog</h1>
-      <p>This is the home page built with Next.js</p>
+      <div className="w-full h-full flex items-center justify-center">
+        <WelcomeAnimation />
+      </div>
     </Layout>
   );
 }

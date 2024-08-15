@@ -4,6 +4,80 @@
 
 @layer base {
   body {
-    @apply bg-white text-black dark:bg-gray-900 dark:text-white;
+    @apply bg-gray-100 dark:bg-gray-900 transition-colors duration-300;
   }
+}
+
+.particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: currentColor;
+  border-radius: 100%;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  transition: transform 1.5s ease-out;
+}
+
+.star {
+  position: absolute;
+  width: var(--size);
+  height: var(--size);
+  background: currentColor;
+  border-radius: 50%;
+  opacity: 0.7;
+  pointer-events: none;
+  animation: twinkle var(--speed) infinite alternate, float 20s infinite alternate;
+  transition: transform 0.2s ease-out;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(10px) translateX(5px); }
+}
+
+.star:hover {
+  transform: scale(1.5);
+  z-index: 10;
+}
+
+#background-container {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease-out;
+}
+
+#background-container:hover .star {
+  animation-play-state: paused;
+}
+
+#background-container:hover .star:hover {
+  animation-play-state: running;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.gradient-bg {
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
+.letter {
+  display: inline-block;
 }

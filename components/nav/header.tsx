@@ -26,9 +26,9 @@ export const Header = () => {
   }, []);
 
   return (
-    <header className={`navbar ${currentTheme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}>
+    <header className={`navbar z-40 ${currentTheme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}>
       <div className="navbar-start">
-        <Link href="/" className="btn btn-ghost text-xl">Your Logo</Link>
+        <Link href="/" className="btn btn-ghost text-xl">Traves Theberge Blog</Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
@@ -54,7 +54,7 @@ export const Header = () => {
 
 const MobileMenu = ({ setIsMenuOpen, currentTheme }) => {
   return (
-    <div className={`absolute top-full right-0 w-48 mt-2 py-2 rounded-lg shadow-xl ${
+    <div className={`absolute top-full right-0 w-48 mt-2 py-2 rounded-lg shadow-xl z-50 ${
       currentTheme === 'dark' ? 'bg-gray-700 text-white' : 'bg-white text-gray-900'
     }`}>
       <ul className="menu menu-vertical w-full">
