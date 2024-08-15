@@ -22,6 +22,11 @@ const config = defineConfig({
   schema: {
     collections: [Post, Global],
   },
+  localContentPath: "./content",
+  cmsCallback: (cms) => {
+    cms.flags.set("baseUrl", process.env.NEXT_PUBLIC_VERCEL_URL || "http://localhost:3000");
+    return cms;
+  },
 });
 
 export default config;
