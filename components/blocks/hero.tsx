@@ -4,10 +4,13 @@ import { TinaMarkdown } from "tinacms/dist/rich-text";
 import type { Template } from "tinacms";
 import { tinaField } from "tinacms/dist/react";
 import Image from "next/image";
-import { Section } from "../layout/section";
 import { Container } from "../layout/container";
 import { Actions } from "./actions";
 import { useTheme } from "next-themes";
+
+export const Section: React.FC<{ children: React.ReactNode; color?: string }> = ({ children, color = 'default' }) => {
+  return <section className={`section-${color}`}>{children}</section>;
+};
 
 export const Hero = ({ data }: { data: any }) => {
   const { theme } = useTheme();
