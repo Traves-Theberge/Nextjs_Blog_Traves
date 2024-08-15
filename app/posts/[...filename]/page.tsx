@@ -2,6 +2,7 @@ import React from "react";
 import client from "../../../tina/__generated__/client";
 import Layout from "../../../components/layout/layout";
 import PostClientPage from "./client-page";
+import fs from 'fs';
 
 export default async function PostPage({
   params,
@@ -26,6 +27,9 @@ export default async function PostPage({
     query,
     variables,
   }, {});
+  if (!postResponse.data.post) {
+    return <div>Content not found</div>;
+  }
   return (
     <Layout>
       <PostClientPage data={postResponse.data} variables={variables} query={query} />
@@ -34,8 +38,13 @@ export default async function PostPage({
 }
 
 export async function generateStaticParams() {
-  const postsResponse = await client.queries.postConnection();
-  return postsResponse.data.postConnection.edges.map((edge) => ({
-    filename: [edge.node._sys.filename],
-  }));
+  const pagesResponse = await client.queries.postConnection();
+  return pagesResponse.data.postConnection.edges
+    .filter(edge => {
+      const filePath = `content/posts/${edge.node._sys.filename}.md`;
+      return fs.existsSync(filePath);
+    })
+    .map((edge) => ({
+      filename: edge.node._sys.breadcrumbs,
+    }));
 }

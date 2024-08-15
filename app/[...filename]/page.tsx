@@ -13,6 +13,10 @@ export default async function Page({
     relativePath,
   });
 
+  if (!pageResponse.data.post) {
+    return <div>Content not found</div>;
+  }
+
   return (
     <Layout>
       <ClientPage data={{
@@ -26,7 +30,12 @@ export default async function Page({
 
 export async function generateStaticParams() {
   const pagesResponse = await client.queries.postConnection();
-  return pagesResponse.data.postConnection.edges.map((edge) => ({
-    filename: edge.node._sys.breadcrumbs,
-  }));
+  return pagesResponse.data.postConnection.edges
+    .filter(edge => {
+      const filePath = `content/posts/${edge.node._sys.filename}.md`;
+      return require('fs').existsSync(filePath);
+    })
+    .map((edge) => ({
+      filename: edge.node._sys.breadcrumbs,
+    }));
 }
