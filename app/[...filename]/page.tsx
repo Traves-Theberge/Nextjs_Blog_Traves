@@ -8,22 +8,25 @@ export default async function Page({
 }: {
   params: { filename: string[] };
 }) {
-  const data = await client.queries.page({
-    relativePath: `${params.filename}.md`,
+  const relativePath = `${params.filename.join("/")}.md`;
+  const pageResponse = await client.queries.post({
+    relativePath,
   });
 
   return (
-    <Layout rawPageData={data}>
-      <ClientPage {...data}></ClientPage>
+    <Layout>
+      <ClientPage data={{
+        page: undefined
+      }} variables={{
+        relativePath: ""
+      }} query={""} {...pageResponse.data.post} />
     </Layout>
   );
 }
 
 export async function generateStaticParams() {
-  const pages = await client.queries.pageConnection();
-  const paths = pages.data?.pageConnection.edges.map((edge) => ({
+  const pagesResponse = await client.queries.postConnection();
+  return pagesResponse.data.postConnection.edges.map((edge) => ({
     filename: edge.node._sys.breadcrumbs,
   }));
-
-  return paths || [];
 }

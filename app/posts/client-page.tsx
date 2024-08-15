@@ -3,12 +3,9 @@ import { format } from "date-fns";
 import Link from "next/link";
 import React from "react";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
-import { useTina } from "tinacms/dist/react";
-import { PostConnectionQuery } from "../../tina/__generated__/types";
 import { useTheme } from "next-themes";
 
-export default function PostsClientPage(props: { data: PostConnectionQuery; variables: any; query: string }) {
-  const { data } = useTina(props);
+export default function PostsClientPage({ data }) {
   const { resolvedTheme } = useTheme();
 
   const isDarkMode = resolvedTheme === 'dark';
@@ -19,14 +16,13 @@ export default function PostsClientPage(props: { data: PostConnectionQuery; vari
     <div className={`container mx-auto px-4 py-8 ${textColor}`}>
       <h1 className={`text-4xl font-bold mb-8 ${textColor}`}>Blog Posts</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {data.postConnection.edges.map((postData) => {
-          const post = postData.node;
+        {data.postConnection.edges.map(({ node: post }) => {
           const date = new Date(post.date);
           const formattedDate = format(date, "MMM dd, yyyy");
           return (
             <Link
               key={post.id}
-              href={`/posts/${post._sys.breadcrumbs.join("/")}`}
+              href={`/posts/${post._sys.filename}`}
               className={`card ${cardBg} shadow-xl hover:shadow-2xl transition-shadow duration-300 overflow-hidden`}
             >
               {post.heroImg && (

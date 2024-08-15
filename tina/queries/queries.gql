@@ -1,12 +1,13 @@
 query pageQuery {
   ...UniqueLayoutQueryFragment
-  postConnection {
+  postConnection(first: 100) {
     edges {
       node {
         id
         date
         title
         excerpt
+        heroImg
         _sys {
           filename
         }

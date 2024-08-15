@@ -7,13 +7,13 @@ export const Footer = () => {
   const { resolvedTheme } = useTheme();
 
   return (
-    <footer className={`p-4 ${resolvedTheme === 'dark' ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-800'}`}>
-      <div className="flex justify-center">
+    <footer className={`py-2 ${resolvedTheme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-gray-800'}`}>
+      <div className="container mx-auto flex justify-center items-center">
         <Link 
           href="https://github.com/your-github-username" 
           target="_blank" 
           rel="noopener noreferrer"
-          className={`text-2xl ${resolvedTheme === 'dark' ? 'hover:text-gray-300' : 'hover:text-gray-600'}`}
+          className={`text-xl ${resolvedTheme === 'dark' ? 'hover:text-gray-300' : 'hover:text-gray-600'}`}
         >
           <FaGithub />
         </Link>

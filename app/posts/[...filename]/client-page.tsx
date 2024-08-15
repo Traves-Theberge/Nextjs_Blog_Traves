@@ -3,13 +3,14 @@ import React from "react";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
 import { useTina } from "tinacms/dist/react";
 import { format } from "date-fns";
-import { PostQuery } from "../../../tina/__generated__/types";
 import { useTheme } from "next-themes";
 
-export default function ClientPost(props: { data: PostQuery; variables: any; query: string }) {
+export default function ClientPost(props: { data: any; variables: any; query: string }) {
   const { data } = useTina(props);
-  const post = data.post;
+  const post = data?.post;
   const { theme } = useTheme();
+
+  if (!post) return <div>Loading...</div>;
 
   return (
     <article className={`prose lg:prose-xl mx-auto p-4 ${theme === 'dark' ? 'prose-dark' : ''}`}>
