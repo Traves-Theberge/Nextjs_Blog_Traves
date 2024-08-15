@@ -1,0 +1,33 @@
+{
+  "header": {
+    "name": "Traves Theberge Blog",
+    "color": "default",
+    "nav": [
+      {
+        "href": "/",
+        "label": "Home"
+      },
+      {
+        "href": "/posts",
+        "label": "Blog"
+      },
+      {
+        "href": "/about",
+        "label": "About"
+      }
+    ]
+  },
+  "footer": {
+    "color": "default",
+    "social": {
+      "facebook": "",
+      "twitter": "",
+      "instagram": ""
+    }
+  },
+  "theme": {
+    "color": "blue",
+    "font": "sans",
+    "darkMode": "system"
+  }
+}
