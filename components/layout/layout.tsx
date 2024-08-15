@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { Header } from "../nav/header";
 import { Footer } from "../nav/footer";
 import { useTheme } from "next-themes";
-import { useTina } from "tinacms/dist/react";
 
 export const Layout = ({
   children,
