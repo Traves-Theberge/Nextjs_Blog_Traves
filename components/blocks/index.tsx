@@ -1,11 +1,10 @@
 import { tinaField } from "tinacms/dist/react";
-import { Page } from "../../tina/__generated__/types";
+import { useTheme } from "next-themes";
 
 import { Hero } from "./hero";
 import { Content } from "./content";
-import { useTheme } from "next-themes";
 
-export const Blocks = (props: Pick<Page, 'blocks'>) => {
+export const Blocks = (props: any) => {
   const { theme } = useTheme();
 
   return (
