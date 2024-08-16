@@ -37,53 +37,61 @@ export const Header = () => {
 
   return (
     <header className={`w-full transition-colors duration-300 ease-in-out ${resolvedTheme === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-gray-800'}`}>
-      <div className="w-full px-4 py-2 flex justify-between items-center">
-        <Link href="/" className="text-xl font-bold">Traves Theberge Blog</Link>
-        
-        <div className="hidden lg:flex items-center justify-center flex-grow">
-          <nav className="flex items-center space-x-8">
+      <div className="w-full px-4 py-4 flex justify-between items-center">
+        <Link href="/" className="text-2xl font-bold">
+          Traves Theberge
+        </Link>
+        <nav className="hidden md:flex flex-grow justify-center space-x-8">
+          {navItems.map((item) => (
+            <Link 
+              key={item.href} 
+              href={item.href} 
+              className={`hover:text-gray-300 transition-colors duration-200 ${pathname === item.href ? 'font-bold' : ''}`}
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+        <div className="flex items-center space-x-2">
+          <ThemeSwitcher />
+          <div className="md:hidden">
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600"
+              aria-label="toggle menu"
+            >
+              {isMenuOpen ? (
+                <svg className="h-6 w-6 fill-current" viewBox="0 0 24 24">
+                  <path d="M18.278 16.864a1 1 0 0 1-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 0 1-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 0 1 1.414-1.414l4.829 4.828 4.828-4.828a1 1 0 1 1 1.414 1.414l-4.828 4.829 4.828 4.828z" />
+                </svg>
+              ) : (
+                <svg className="h-6 w-6 fill-current" viewBox="0 0 24 24">
+                  <path d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z" />
+                </svg>
+              )}
+            </button>
+          </div>
+        </div>
+      </div>
+      {isMenuOpen && (
+        <div className={`md:hidden fixed top-[60px] left-0 right-0 z-50 shadow-md ${
+          resolvedTheme === 'dark' ? 'bg-gray-700 text-white' : 'bg-white text-gray-900'
+        }`}>
+          <nav className="flex flex-col items-center py-2">
             {navItems.map((item) => (
-              <Link 
-                key={item.href} 
-                href={item.href} 
-                className={`hover:text-gray-300 transition-colors duration-200 ${pathname === item.href ? 'font-bold' : ''}`}
+              <Link
+                key={item.href}
+                href={item.href}
+                passHref
               >
-                {item.label}
+                <span className={`w-full text-center py-3 block hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-200 ${pathname === item.href ? 'font-bold' : ''}`}>
+                  {item.label}
+                </span>
               </Link>
             ))}
           </nav>
         </div>
-        
-        <div className="flex items-center">
-          <ThemeSwitcher />
-          <div className="lg:hidden relative ml-4" ref={dropdownRef}>
-            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="p-2">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-5 h-5 stroke-current">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
-              </svg>
-            </button>
-            {isMenuOpen && (
-              <div className={`lg:hidden fixed top-[60px] left-0 right-0 z-50 shadow-md ${
-                resolvedTheme === 'dark' ? 'bg-gray-700 text-white' : 'bg-white text-gray-900'
-              }`}>
-                <nav className="flex flex-col items-center py-2">
-                  {navItems.map((item) => (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      passHref
-                    >
-                      <span className={`w-full text-center py-3 block hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-200 ${pathname === item.href ? 'font-bold' : ''}`}>
-                        {item.label}
-                      </span>
-                    </Link>
-                  ))}
-                </nav>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
+      )}
     </header>
   );
 };
