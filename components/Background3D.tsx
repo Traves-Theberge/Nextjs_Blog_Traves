@@ -1,12 +1,14 @@
 "use client";
 
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef, useCallback, useState } from 'react';
 import { useTheme } from 'next-themes';
 import debounce from 'lodash/debounce';
+import anime from 'animejs';
 
 const Background3D: React.FC = React.memo(() => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { resolvedTheme } = useTheme();
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleMouseMove = useCallback(
     debounce((event: MouseEvent) => {
@@ -41,6 +43,16 @@ const Background3D: React.FC = React.memo(() => {
       container.appendChild(star);
     }
 
+    // Animate background
+    const targetColor = resolvedTheme === 'dark' ? '#111827' : '#f3f4f6';
+    anime({
+      targets: container,
+      backgroundColor: targetColor,
+      duration: 1000,
+      easing: 'easeInOutQuad',
+      complete: () => setIsLoading(false)
+    });
+
     window.addEventListener('mousemove', handleMouseMove);
 
     return () => {
@@ -48,10 +60,14 @@ const Background3D: React.FC = React.memo(() => {
     };
   }, [resolvedTheme, handleMouseMove]);
 
+  if (isLoading) {
+    return <div className="fixed inset-0 bg-gray-900 dark:bg-gray-100" />;
+  }
+
   return (
     <div 
       ref={containerRef} 
-      className={`fixed inset-0 overflow-hidden ${
+      className={`fixed inset-0 overflow-hidden transition-colors duration-1000 ${
         resolvedTheme === 'dark' ? 'bg-gray-900 dark' : 'bg-gray-100 light'
       }`}
     />
