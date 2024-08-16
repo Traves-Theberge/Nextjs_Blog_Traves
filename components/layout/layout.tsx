@@ -29,9 +29,9 @@ export const Layout = ({
       <div id="background-container" className="fixed inset-0 overflow-hidden gradient-bg">
         <Background3D />
       </div>
-      <div className={`flex flex-col min-h-screen z-10 ${resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+      <div className={`flex flex-col min-h-screen z-10 transition-colors duration-300 ease-in-out ${resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
         <Header />
-        <main className="flex-1 flex items-center justify-center overflow-hidden">
+        <main className="flex-1 transition-colors duration-300 ease-in-out flex items-center justify-center overflow-hidden">
           {children}
         </main>
         <Footer />

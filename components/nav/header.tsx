@@ -4,13 +4,13 @@ import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { ThemeSwitcher } from "../theme-switcher";
 import { useTheme } from "next-themes";
+import { usePathname } from 'next/navigation';
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { theme, resolvedTheme } = useTheme();
+  const { resolvedTheme } = useTheme();
   const dropdownRef = useRef(null);
-
-  const currentTheme = theme === 'system' ? resolvedTheme : theme;
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -25,49 +25,65 @@ export const Header = () => {
     };
   }, []);
 
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [pathname]);
+
+  const navItems = [
+    { href: "/", label: "Home" },
+    { href: "/posts", label: "Blog" },
+    { href: "/about", label: "About" },
+  ];
+
   return (
-    <header className={`navbar z-40 ${currentTheme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}>
-      <div className="navbar-start">
-        <Link href="/" className="btn btn-ghost text-xl">Traves Theberge Blog</Link>
-      </div>
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          <li><Link href="/">Home</Link></li>
-          <li><Link href="/about">About</Link></li>
-          <li><Link href="/posts">Blog</Link></li>
-        </ul>
-      </div>
-      <div className="navbar-end">
-        <ThemeSwitcher />
-        <div className="lg:hidden relative" ref={dropdownRef}>
-          <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="btn btn-square btn-ghost">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-5 h-5 stroke-current">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-          </button>
-          {isMenuOpen && <MobileMenu setIsMenuOpen={setIsMenuOpen} currentTheme={currentTheme} />}
+    <header className={`w-full transition-colors duration-300 ease-in-out ${resolvedTheme === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-gray-800'}`}>
+      <div className="w-full px-4 py-2 flex justify-between items-center">
+        <Link href="/" className="text-xl font-bold">Traves Theberge Blog</Link>
+        
+        <div className="hidden lg:flex items-center justify-center flex-grow">
+          <nav className="flex items-center space-x-8">
+            {navItems.map((item) => (
+              <Link 
+                key={item.href} 
+                href={item.href} 
+                className={`hover:text-gray-300 transition-colors duration-200 ${pathname === item.href ? 'font-bold' : ''}`}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+        </div>
+        
+        <div className="flex items-center">
+          <ThemeSwitcher />
+          <div className="lg:hidden relative ml-4" ref={dropdownRef}>
+            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="p-2">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-5 h-5 stroke-current">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
+              </svg>
+            </button>
+            {isMenuOpen && (
+              <div className={`lg:hidden fixed top-[60px] left-0 right-0 z-50 shadow-md ${
+                resolvedTheme === 'dark' ? 'bg-gray-700 text-white' : 'bg-white text-gray-900'
+              }`}>
+                <nav className="flex flex-col items-center py-2">
+                  {navItems.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      passHref
+                    >
+                      <span className={`w-full text-center py-3 block hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-200 ${pathname === item.href ? 'font-bold' : ''}`}>
+                        {item.label}
+                      </span>
+                    </Link>
+                  ))}
+                </nav>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </header>
-  );
-};
-
-const MobileMenu = ({ setIsMenuOpen, currentTheme }) => {
-  return (
-    <div className={`absolute top-full right-0 w-48 mt-2 py-2 rounded-lg shadow-xl z-50 ${
-      currentTheme === 'dark' ? 'bg-gray-700 text-white' : 'bg-white text-gray-900'
-    }`}>
-      <ul className="menu menu-vertical w-full">
-        <li><Link href="/" onClick={() => setIsMenuOpen(false)} className={`px-4 py-2 ${
-          currentTheme === 'dark' ? 'hover:bg-gray-600' : 'hover:bg-gray-100'
-        }`}>Home</Link></li>
-        <li><Link href="/about" onClick={() => setIsMenuOpen(false)} className={`px-4 py-2 ${
-          currentTheme === 'dark' ? 'hover:bg-gray-600' : 'hover:bg-gray-100'
-        }`}>About</Link></li>
-        <li><Link href="/posts" onClick={() => setIsMenuOpen(false)} className={`px-4 py-2 ${
-          currentTheme === 'dark' ? 'hover:bg-gray-600' : 'hover:bg-gray-100'
-        }`}>Blog</Link></li>
-      </ul>
-    </div>
   );
 };

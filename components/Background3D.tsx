@@ -3,12 +3,11 @@
 import React, { useEffect, useRef, useCallback, useState } from 'react';
 import { useTheme } from 'next-themes';
 import debounce from 'lodash/debounce';
-import anime from 'animejs';
 
 const Background3D: React.FC = React.memo(() => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { resolvedTheme } = useTheme();
-  const [isLoading, setIsLoading] = useState(true);
+  const [stars, setStars] = useState<React.ReactNode[]>([]);
 
   const handleMouseMove = useCallback(
     debounce((event: MouseEvent) => {
@@ -24,34 +23,23 @@ const Background3D: React.FC = React.memo(() => {
   );
 
   useEffect(() => {
-    if (!containerRef.current) return;
-
-    const container = containerRef.current;
     const starsCount = 200;
+    const newStars = Array.from({ length: starsCount }, (_, i) => (
+      <div
+        key={i}
+        className="star"
+        style={{
+          '--size': `${Math.random() * 3 + 1}px`,
+          left: `${Math.random() * 100}%`,
+          top: `${Math.random() * 100}%`,
+          '--speed': `${Math.random() * 10 + 5}s`,
+        } as React.CSSProperties}
+      />
+    ));
+    setStars(newStars);
 
-    // Clear existing stars
-    container.innerHTML = '';
-
-    // Create stars
-    for (let i = 0; i < starsCount; i++) {
-      const star = document.createElement('div');
-      star.classList.add('star');
-      star.style.setProperty('--size', `${Math.random() * 3 + 1}px`);
-      star.style.left = `${Math.random() * 100}%`;
-      star.style.top = `${Math.random() * 100}%`;
-      star.style.setProperty('--speed', `${Math.random() * 10 + 5}s`);
-      container.appendChild(star);
-    }
-
-    // Animate background
     const targetColor = resolvedTheme === 'dark' ? '#111827' : '#f3f4f6';
-    anime({
-      targets: container,
-      backgroundColor: targetColor,
-      duration: 1000,
-      easing: 'easeInOutQuad',
-      complete: () => setIsLoading(false)
-    });
+    containerRef.current.style.backgroundColor = targetColor;
 
     window.addEventListener('mousemove', handleMouseMove);
 
@@ -60,17 +48,15 @@ const Background3D: React.FC = React.memo(() => {
     };
   }, [resolvedTheme, handleMouseMove]);
 
-  if (isLoading) {
-    return <div className="fixed inset-0 bg-gray-900 dark:bg-gray-100" />;
-  }
-
   return (
     <div 
       ref={containerRef} 
-      className={`fixed inset-0 overflow-hidden transition-colors duration-1000 ${
-        resolvedTheme === 'dark' ? 'bg-gray-900 dark' : 'bg-gray-100 light'
+      className={`fixed inset-0 overflow-hidden transition-colors duration-300 ease-in-out z-[-1] ${
+        resolvedTheme === 'dark' ? 'bg-gray-900' : 'bg-gray-100'
       }`}
-    />
+    >
+      {stars}
+    </div>
   );
 });
 

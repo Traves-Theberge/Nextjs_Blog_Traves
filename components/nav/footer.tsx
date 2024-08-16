@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import { useTheme } from "next-themes";
@@ -7,7 +9,7 @@ export const Footer = () => {
   const { resolvedTheme } = useTheme();
 
   return (
-    <footer className={`py-2 ${resolvedTheme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-gray-800'}`}>
+    <footer className={`py-2 transition-colors duration-300 ease-in-out ${resolvedTheme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-gray-800'}`}>
       <div className="container mx-auto flex justify-center items-center">
         <Link 
           href="https://github.com/Traves-Theberge/" 

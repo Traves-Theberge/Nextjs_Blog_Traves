@@ -69,7 +69,7 @@ export default async function RootLayout({
       </head>
       <body
         className={cn(
-          "min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-300",
+          "min-h-screen transition-colors duration-0",
           fontVariable
         )}
       >

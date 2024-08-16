@@ -56,6 +56,12 @@ module.exports = {
       spacing: {
         128: "32rem",
       },
+      transitionProperty: {
+        'colors': 'color, background-color, border-color, text-decoration-color, fill, stroke',
+      },
+      transitionDuration: {
+        'colors': '300ms',
+      },
       zIndex: {
         "-1": "-1",
       },
