@@ -1,37 +1,42 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import anime from 'animejs';
 
 const AboutAnimation: React.FC = () => {
   const animationRef = useRef(null);
-  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    const animation = anime.timeline({
-      targets: animationRef.current,
+    const paragraphs = document.querySelectorAll('.about-paragraph');
+    
+    anime.timeline({
       easing: 'easeOutExpo',
+    })
+    .add({
+      targets: animationRef.current,
+      opacity: [0, 1],
+      duration: 1000,
+    })
+    .add({
+      targets: '.about-title',
+      opacity: [0, 1],
+      duration: 800,
+      translateY: [50, 0],
+    })
+    .add({
+      targets: paragraphs,
+      opacity: [0, 1],
+      rotateX: [90, 0],
+      translateY: [50, 0],
+      duration: 1000,
+      delay: anime.stagger(200),
+      easing: 'easeOutElastic(1, .8)',
     });
-
-    animation
-      .add({
-        opacity: [0, 1],
-        translateY: [50, 0],
-        duration: 1000,
-      })
-      .add({
-        targets: '.about-paragraph',
-        opacity: [0, 1],
-        translateY: [20, 0],
-        duration: 800,
-        delay: anime.stagger(200),
-        complete: () => setIsLoaded(true),
-      });
   }, []);
 
   return (
-    <div ref={animationRef} className={`flex flex-col items-center justify-center h-full p-4 text-center ${isLoaded ? 'overflow-auto' : 'overflow-hidden'}`}>
-      <h1 className="text-4xl font-bold mb-6">About Me</h1>
+    <div ref={animationRef} className="flex flex-col items-center justify-center h-full p-4 text-center overflow-auto">
+      <h1 className="about-title text-4xl font-bold mb-6">About Me</h1>
       <div className="text-lg max-w-3xl space-y-4">
         <p className="about-paragraph">
           Hi there! I am Traves Theberge, a Canadian Indigenous professional passionate about technology and Indigenous language revitalization. My journey has taken me through various fields, from systems design and hardware installation to project management to language revitalization and cultural initiatives.

@@ -22,7 +22,7 @@ const WelcomeAnimation: React.FC = () => {
         targets: '.letter',
         translateY: [-100, 0],
         opacity: [0, 1],
-        duration: 1000,
+        duration: 500,
         delay: anime.stagger(100),
       })
       .add({
