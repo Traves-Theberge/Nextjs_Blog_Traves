@@ -8,7 +8,7 @@ export function ThemeSwitcher() {
 
   useEffect(() => setMounted(true), []);
 
-  if (!mounted) return <div className="w-8 h-8" />;
+  if (!mounted) return null;
 
   return (
     <button

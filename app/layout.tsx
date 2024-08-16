@@ -1,6 +1,6 @@
 import "../styles.css";
 import React from "react";
-import { ThemeProvider } from "next-themes";
+import { ThemeProvider } from "../components/theme-provider";
 import { Inter as FontSans, Lato, Nunito } from "next/font/google";
 import { cn } from "../lib/utils";
 import { Metadata } from "next";
@@ -52,24 +52,9 @@ export default async function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <script dangerouslySetInnerHTML={{
-          __html: `
-            (function() {
-              try {
-                var mode = localStorage.getItem('theme');
-                var supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
-                if (!mode && supportDarkMode)  document.documentElement.classList.add('dark');
-                if (!mode) return;
-                document.documentElement.classList.add(mode);
-              } catch (e) {}
-            })();
-          `
-        }} />
-      </head>
       <body
         className={cn(
-          "min-h-screen transition-colors duration-0",
+          "min-h-screen transition-colors duration-300",
           fontVariable
         )}
       >
