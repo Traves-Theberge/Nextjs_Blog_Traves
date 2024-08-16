@@ -14,6 +14,9 @@ importers:
       '@tailwindcss/typography':
         specifier: ^0.5.14
         version: 0.5.14(tailwindcss@3.4.10)
+      animejs:
+        specifier: ^3.2.2
+        version: 3.2.2
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -2549,6 +2552,9 @@ packages:
   altair-static@7.3.4:
     resolution: {integrity: sha512-+Ip/c7SWLERZoYv3QFeH+Ws/IAx80vPrT3yvtdRlKqYTitUvNeKfY9nB+DpJBixII9gtOO+i0naEuZXVFWfPuA==}
     engines: {node: '>= 6.9.1'}
+
+  animejs@3.2.2:
+    resolution: {integrity: sha512-Ao95qWLpDPXXM+WrmwcKbl6uNlC5tjnowlaRYtuVDHHoygjtIPfDUoK9NthrlZsQSKjZXlmji2TrBUAVbiH0LQ==}
 
   ansi-regex@5.0.1:
     resolution: {integrity: sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==}
@@ -9844,6 +9850,8 @@ snapshots:
       - supports-color
 
   altair-static@7.3.4: {}
+
+  animejs@3.2.2: {}
 
   ansi-regex@5.0.1: {}
 
