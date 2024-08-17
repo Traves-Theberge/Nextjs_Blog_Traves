@@ -4,43 +4,35 @@ import Layout from "../../../components/layout/layout";
 import PostClientPage from "./client-page";
 import fs from 'fs';
 import { useRouter } from 'next/navigation';
+import { draftMode } from 'next/headers';
+import { notFound } from "next/navigation";
 
 export default async function PostPage({
   params,
 }: {
   params: { filename: string[] };
 }) {
+  const { isEnabled } = draftMode();
   const relativePath = `${params.filename.join("/")}.mdx`;
-  const query = `
-    query BlogPostQuery($relativePath: String!) {
-      post(relativePath: $relativePath) {
-        id
-        title
-        date
-        heroImg
-        excerpt
-        _body
-      }
-    }
-  `;
-  const variables = { relativePath };
-  const postResponse = await client.request({
-    query,
-    variables,
-  }, {});
-  if (!postResponse.data.post) {
-    return <div>Content not found</div>;
+  const tinaProps = await client.queries.post({
+    relativePath,
+    ...(isEnabled ? { draft: true } : {}),
+  });
+
+  if (!tinaProps.data?.post) {
+    return notFound();
   }
+
   return (
     <Layout>
-      <PostClientPage data={postResponse.data} variables={variables} query={query} />
+      <PostClientPage {...tinaProps} />
     </Layout>
   );
 }
 
 export async function generateStaticParams() {
-  const pagesResponse = await client.queries.postConnection();
-  return pagesResponse.data.postConnection.edges
+  const postsResponse = await client.queries.postConnection();
+  return postsResponse.data.postConnection.edges
     .filter(edge => {
       const filePath = `content/posts/${edge.node._sys.filename}.md`;
       return fs.existsSync(filePath);
