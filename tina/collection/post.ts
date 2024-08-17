@@ -43,6 +43,11 @@ const Post: Collection = {
       name: "_body",
       isBody: true,
     },
+    {
+      type: "string",
+      label: "Author",
+      name: "author",
+    },
   ],
 };
 
