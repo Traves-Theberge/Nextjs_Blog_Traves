@@ -26,6 +26,7 @@ export default async function PostPage({
   return (
     <Layout>
       <PostClientPage {...tinaProps} />
+      
     </Layout>
   );
 }
