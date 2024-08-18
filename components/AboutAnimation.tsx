@@ -39,16 +39,16 @@ const AboutAnimation: React.FC = () => {
       <h1 className="about-title text-4xl font-bold mb-6">About Me</h1>
       <div className="text-lg max-w-3xl space-y-4">
         <p className="about-paragraph">
-          Hi there! I am Traves Theberge, a Canadian Indigenous professional passionate about technology and Indigenous language revitalization. My journey has taken me through various fields, from systems design and hardware installation to project management to language revitalization and cultural initiatives.
+        Hi there! I’m Traves Theberge, a systems professional with over a decade of experience in automation, control systems design, installation, programming, and technical project management. 
         </p>
         <p className="about-paragraph">
-          This diverse experience has equipped me to tackle modern challenges with creativity and confidence. I'm deeply committed to preserving Indigenous languages and exploring how technology can support this mission. My work in different roles has shown me the powerful impact of combining cultural heritage with technological innovation.
+        My expertise lies in optimizing system performance, ensuring compliance with industry standards, and utilizing advanced technologies to enhance operational efficiency.
         </p>
         <p className="about-paragraph">
-          This blog is a space to share my journey toward becoming a software developer. I'll be documenting my progress, sharing insights, and exploring how we can use technology to build a more inclusive future.
+        In addition to my technical career, I am dedicated to using technology in innovative ways. This blog is where I document my journey toward becoming a software developer. 
         </p>
         <p className="about-paragraph">
-          Join me as I navigate this exciting path, blending my technical skills with my passion for cultural heritage!
+        I'll be sharing my projects in software development, focusing on the integration of AI and automation, as I navigate this exciting field.
         </p>
       </div>
     </div>
