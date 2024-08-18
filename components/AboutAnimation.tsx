@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import anime from 'animejs';
+import Link from 'next/link';
 
 const AboutAnimation: React.FC = () => {
   const animationRef = useRef(null);
@@ -39,7 +40,7 @@ const AboutAnimation: React.FC = () => {
       <h1 className="about-title text-4xl font-bold mb-6">About Me</h1>
       <div className="text-lg max-w-3xl space-y-4">
         <p className="about-paragraph">
-        Hi there! I’m Traves Theberge, a systems professional with over a decade of experience in automation, control systems design, installation, programming, and technical project management. 
+        Hi there! I'm <Link href="https://registry.jsonresume.org/Traves-Theberge" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-700 underline">Traves Theberge</Link>, a systems professional with over a decade of experience in automation, control systems design, installation, programming, and technical project management. 
         </p>
         <p className="about-paragraph">
         My expertise lies in optimizing system performance, ensuring compliance with industry standards, and utilizing advanced technologies to enhance operational efficiency.

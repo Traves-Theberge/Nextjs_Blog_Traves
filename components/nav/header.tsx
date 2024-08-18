@@ -38,7 +38,7 @@ export const Header = () => {
   return (
     <header className={`w-full transition-colors duration-300 ease-in-out ${resolvedTheme === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-gray-800'}`}>
       <div className="w-full px-4 py-4 flex justify-between items-center">
-        <Link href="/" className="text-2xl font-bold">
+        <Link href="https://registry.jsonresume.org/Traves-Theberge" target="_blank" rel="noopener noreferrer" className="text-2xl font-bold hover:text-blue-500 transition-colors duration-200">
           Traves Theberge
         </Link>
         <nav className="hidden md:flex flex-grow justify-center space-x-8">
