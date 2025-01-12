@@ -1,40 +1,27 @@
-module.exports = {
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "assets.tina.io",
-        port: "",
-      },
-    ],
+const withMDX = require('@next/mdx')({
+  extension: /\.mdx?$/,
+  options: {
+    remarkPlugins: [],
+    rehypePlugins: [],
+    providerImportSource: "@mdx-js/react",
   },
-  webpack(config) {
-    config.module.rules.push({
-      test: /\.svg$/i,
-      issuer: /\.[jt]sx?$/,
-      use: ["@svgr/webpack"],
-    });
+});
 
-    return config;
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
+  reactStrictMode: true,
+  images: {
+    domains: ['images.unsplash.com'],
   },
-  async rewrites() {
-    return [
-      {
-        source: "/",
-        destination: "/home",
-      },
-      {
-        source: "/admin",
-        destination: "/admin/index.html",
-      },
-      {
-        source: "/about",
-        destination: "/about",
-      },
-      {
-        source: "/posts",
-        destination: "/posts",
-      },
-    ];
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.(glsl|vs|fs|vert|frag)$/,
+      exclude: /node_modules/,
+      use: ['raw-loader'],
+    })
+    return config
   },
 };
+
+module.exports = withMDX(nextConfig);
