@@ -18,8 +18,11 @@ export function WorkProject({ project }: WorkProjectProps) {
     setImageLoaded(false)
   }, [project.image])
 
+  // Split description into paragraphs
+  const descriptionParagraphs = project.description.split('\n\n').filter(Boolean)
+
   return (
-    <AnimatePresence mode="wait" initial={false}>
+    <AnimatePresence mode="wait">
       <motion.div
         key={project.id}
         initial={{ opacity: 0, y: 20 }}
@@ -28,15 +31,15 @@ export function WorkProject({ project }: WorkProjectProps) {
         transition={{ duration: 0.3 }}
         className="space-y-8"
       >
-        {/* Project Image */}
-        <div className="relative aspect-video rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800">
+        {/* Project Image - Updated background */}
+        <div className="relative aspect-[16/9] rounded-xl overflow-hidden bg-gray-900">
           <Image
             src={project.image}
             alt={project.title}
             fill
             priority
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className={`object-cover transition-opacity duration-300 ${
+            className={`object-contain p-4 transition-opacity duration-300 ${
               imageLoaded ? 'opacity-100' : 'opacity-0'
             }`}
             onLoad={() => setImageLoaded(true)}
@@ -48,37 +51,34 @@ export function WorkProject({ project }: WorkProjectProps) {
           )}
         </div>
 
-        {/* Project Links */}
-        <div className="flex gap-4">
-          {project.github && (
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-            >
-              <FiGithub className="w-5 h-5" />
-              <span>View Source</span>
-            </a>
-          )}
-          {project.link && (
-            <a
-              href={project.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-            >
-              <FiExternalLink className="w-5 h-5" />
-              <span>Visit Project</span>
-            </a>
-          )}
+        {/* Action Button - Conditional rendering */}
+        <div className="flex">
+          <a
+            href={project.id === 'golden-earth' ? project.link : "mailto:traves.theberge@gmail.com?subject=Project Preview Request"}
+            target={project.id === 'golden-earth' ? "_blank" : undefined}
+            rel={project.id === 'golden-earth' ? "noopener noreferrer" : undefined}
+            className="group relative px-6 py-3 rounded-2xl bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 text-white 
+              overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-blue-500/25
+              before:absolute before:inset-0 before:bg-gradient-to-r before:from-blue-700 before:via-purple-700 before:to-blue-700
+              before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100"
+          >
+            <span className="relative flex items-center gap-2 font-medium">
+              {project.id === 'golden-earth' ? 'Visit Website' : 'Request Preview'}
+              <FiExternalLink className="w-5 h-5 transform transition-transform group-hover:translate-x-1" />
+            </span>
+          </a>
         </div>
 
-        {/* Project Details */}
-        <div className="prose dark:prose-invert max-w-none">
-          <Typography className="text-gray-600 dark:text-gray-400">
-            {project.description}
-          </Typography>
+        {/* Project Details - Updated */}
+        <div className="prose prose-lg dark:prose-invert max-w-none space-y-6">
+          {descriptionParagraphs.map((paragraph, index) => (
+            <Typography 
+              key={index}
+              className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed whitespace-pre-line"
+            >
+              {paragraph.trim()}
+            </Typography>
+          ))}
         </div>
 
         {/* Tech Stack */}

@@ -25,24 +25,23 @@ export function Navigation() {
     <header className="sticky top-0 z-50 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg border-b border-gray-200 dark:border-gray-800">
       <Container className="px-6 lg:px-8">
         <nav className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo */}
           <Logo />
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center justify-center flex-1">
             <div className="flex items-center space-x-2">
-              {navLinks.map(({ href, label, icon }) => (
+              {navLinks.map(({ href, label }) => (
                 <Link
                   key={href}
                   href={href}
-                  className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors flex items-center gap-2
+                  className={`px-4 py-2 text-sm font-medium rounded-2xl transition-all duration-300
                     ${pathname === href
                       ? 'bg-gray-100 dark:bg-gray-800 text-blue-600 dark:text-blue-400'
-                      : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
+                      : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50'
                     }
+                    hover:scale-105
                   `}
                 >
-                  {icon}
                   {label}
                 </Link>
               ))}
@@ -62,7 +61,7 @@ export function Navigation() {
             <ThemeToggle />
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 ml-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+              className="p-2 ml-4 rounded-2xl hover:bg-gray-100 dark:hover:bg-gray-800"
               aria-label={isOpen ? 'Close menu' : 'Open menu'}
             >
               {isOpen ? <FiX className="w-6 h-6" /> : <FiMenu className="w-6 h-6" />}
@@ -86,11 +85,12 @@ export function Navigation() {
                   <Link
                     key={href}
                     href={href}
-                    className={`px-4 py-3 text-sm font-medium rounded-lg transition-colors flex items-center gap-3
+                    className={`px-4 py-3 text-sm font-medium rounded-2xl transition-all duration-300 flex items-center gap-3
                       ${pathname === href
                         ? 'bg-gray-100 dark:bg-gray-800 text-blue-600 dark:text-blue-400'
-                        : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
+                        : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50'
                       }
+                      hover:scale-105
                     `}
                     onClick={() => setIsOpen(false)}
                   >

@@ -54,10 +54,9 @@ export function BlogLayout({ posts }: BlogLayoutProps) {
   }, [searchQuery, selectedTags])
 
   return (
-    <section className="py-20">
+    <section className="py-12">
       <Container className="max-w-7xl mx-auto px-4">
-        {/* Search and Filters - Added pt-8 for more space above */}
-        <div className="mb-8 space-y-6 pt-8">
+        <div className="mb-8 space-y-6 pt-2">
           <BlogSearch value={searchQuery} onChange={setSearchQuery} />
           <BlogFilter 
             tags={allTags}
@@ -66,7 +65,6 @@ export function BlogLayout({ posts }: BlogLayoutProps) {
           />
         </div>
 
-        {/* Posts Grid - Updated with consistent sizing */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-fr">
           {paginatedPosts.map((post, index) => (
             <motion.div
@@ -81,7 +79,6 @@ export function BlogLayout({ posts }: BlogLayoutProps) {
           ))}
         </div>
 
-        {/* Pagination */}
         {filteredPosts.length > POSTS_PER_PAGE && (
           <div className="mt-12">
             <Pagination
@@ -92,7 +89,6 @@ export function BlogLayout({ posts }: BlogLayoutProps) {
           </div>
         )}
 
-        {/* No Results */}
         {filteredPosts.length === 0 && (
           <motion.div
             initial={{ opacity: 0 }}
