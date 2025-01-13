@@ -7,7 +7,8 @@ import { ThemeToggle } from '@/components/ui/common/ThemeToggle'
 import { Container } from '@/components/ui/common/Container'
 import { motion, AnimatePresence } from 'framer-motion'
 import { usePathname } from 'next/navigation'
-import { FiMenu, FiX, FiHome, FiBookOpen, FiBriefcase, FiUser, FiGithub, FiTwitter, FiLinkedin } from 'react-icons/fi'
+import { FiMenu, FiX, FiHome, FiBookOpen, FiBriefcase, FiUser, FiGithub, FiLinkedin } from 'react-icons/fi'
+import { FaSquareXTwitter } from "react-icons/fa6"
 import { SocialLinks } from '../ui/common/SocialLinks'
 
 const navLinks = [

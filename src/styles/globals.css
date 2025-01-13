@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 /* Custom Cursor */
+/*
 * {
   cursor: none;
 }
@@ -22,6 +23,7 @@
   transform: scale(1.5);
   background-color: rgba(59, 130, 246, 0.1);
 }
+*/
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {

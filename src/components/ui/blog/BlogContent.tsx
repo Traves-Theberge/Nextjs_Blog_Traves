@@ -3,7 +3,7 @@
 import { MDXProvider } from '@mdx-js/react'
 import { Typography } from '../common/Typography'
 
-const components = {
+export const MDXComponents = {
   h1: (props: any) => (
     <Typography
       variant="h1"
@@ -47,5 +47,5 @@ const components = {
 }
 
 export function BlogContent({ children }: { children: React.ReactNode }) {
-  return <MDXProvider components={components}>{children}</MDXProvider>
+  return <MDXProvider components={MDXComponents}>{children}</MDXProvider>
 } 

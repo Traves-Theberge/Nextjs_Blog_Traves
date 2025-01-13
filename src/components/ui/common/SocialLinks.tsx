@@ -1,6 +1,7 @@
 'use client'
 
-import { FiGithub, FiTwitter, FiLinkedin } from 'react-icons/fi'
+import { FiGithub, FiLinkedin } from 'react-icons/fi'
+import { FaSquareXTwitter } from "react-icons/fa6"
 import { motion } from 'framer-motion'
 
 const socialLinks = [
@@ -11,8 +12,8 @@ const socialLinks = [
   },
   {
     href: 'https://x.com/Traves_Theberge',
-    label: 'Twitter',
-    icon: <FiTwitter className="w-5 h-5" />
+    label: 'X (Twitter)',
+    icon: <FaSquareXTwitter className="w-5 h-5" />
   },
   {
     href: 'https://www.linkedin.com/in/traves-theberge',

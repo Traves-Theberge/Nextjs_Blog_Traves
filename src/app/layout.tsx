@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import '@/styles/globals.css'
 import { Providers } from '@/components/core/Providers'
+import { ScrollProvider } from '@/providers/ScrollProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -43,7 +44,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className={inter.className}>
       <body className="bg-white dark:bg-gray-900">
-        <Providers>{children}</Providers>
+        <ScrollProvider>
+          <Providers>{children}</Providers>
+        </ScrollProvider>
       </body>
     </html>
   )

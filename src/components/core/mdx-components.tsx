@@ -16,7 +16,7 @@ const components = {
     <Typography 
       variant="h1" 
       className={cn(
-        "text-4xl md:text-5xl font-bold mt-8 mb-4",
+        "text-4xl md:text-5xl lg:text-6xl font-bold mb-8",
         props.className
       )}
     >
@@ -27,7 +27,7 @@ const components = {
     <Typography 
       variant="h2" 
       className={cn(
-        "text-3xl md:text-4xl font-bold mt-8 mb-4",
+        "text-2xl md:text-3xl lg:text-4xl font-bold mt-12 mb-6",
         props.className
       )}
     >
@@ -38,7 +38,7 @@ const components = {
     <Typography 
       variant="h3" 
       className={cn(
-        "text-2xl md:text-3xl font-bold mt-6 mb-3",
+        "text-xl md:text-2xl lg:text-3xl font-semibold mt-8 mb-4",
         props.className
       )}
     >
@@ -46,35 +46,50 @@ const components = {
     </Typography>
   ),
   p: ({ children, ...props }: MDXProps) => (
-    <Typography 
-      className={cn(
-        "text-gray-600 dark:text-gray-400 mb-4",
-        props.className
-      )}
-    >
-      {children}
-    </Typography>
-  ),
-  img: (props: { src: string; alt: string; className?: string }) => (
-    <div className="relative aspect-video my-8">
-      <Image 
-        src={props.src} 
-        alt={props.alt} 
-        fill
-        className={cn(
-          "rounded-lg object-cover",
-          props.className
-        )}
-      />
+    <div className={cn(
+      "mb-6 prose prose-lg dark:prose-invert max-w-none",
+      props.className
+    )}>
+      <Typography className="text-gray-600 dark:text-gray-300 leading-relaxed">
+        {children}
+      </Typography>
     </div>
   ),
-  pre: ({ children, ...props }: MDXProps) => (
-    <pre className={cn(
-      "bg-gray-100 dark:bg-gray-800 rounded-lg p-4 mb-4 overflow-x-auto",
+  ul: ({ children, ...props }: MDXProps) => (
+    <ul className={cn(
+      "mb-6 ml-6 space-y-2 list-disc prose prose-lg dark:prose-invert",
       props.className
     )}>
       {children}
-    </pre>
+    </ul>
+  ),
+  li: ({ children, ...props }: MDXProps) => (
+    <li className={cn(
+      "text-gray-600 dark:text-gray-300 leading-relaxed pl-2",
+      props.className
+    )}>
+      {children}
+    </li>
+  ),
+  strong: ({ children, ...props }: MDXProps) => (
+    <strong className={cn(
+      "font-semibold text-gray-900 dark:text-white",
+      props.className
+    )}>
+      {children}
+    </strong>
+  ),
+  img: ({ src, alt, ...props }: { src: string; alt: string; className?: string }) => (
+    <div className="relative w-full h-[400px] my-8 rounded-xl overflow-hidden">
+      <Image 
+        src={src} 
+        alt={alt}
+        fill
+        className="object-cover"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        priority
+      />
+    </div>
   ),
 }
 

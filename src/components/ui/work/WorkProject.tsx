@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { Typography } from '../common/Typography'
 import { FiGithub, FiExternalLink } from 'react-icons/fi'
 import type { Project } from '@/types/project'
+import { GradientButton } from '../common/GradientButton'
 
 interface WorkProjectProps {
   project: Project
@@ -51,22 +52,15 @@ export function WorkProject({ project }: WorkProjectProps) {
           )}
         </div>
 
-        {/* Action Button - Conditional rendering */}
+        {/* Action Button - Updated to use shared component */}
         <div className="flex">
-          <a
+          <GradientButton
             href={project.id === 'golden-earth' ? project.link : "mailto:traves.theberge@gmail.com?subject=Project Preview Request"}
-            target={project.id === 'golden-earth' ? "_blank" : undefined}
-            rel={project.id === 'golden-earth' ? "noopener noreferrer" : undefined}
-            className="group relative px-6 py-3 rounded-2xl bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 text-white 
-              overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-blue-500/25
-              before:absolute before:inset-0 before:bg-gradient-to-r before:from-blue-700 before:via-purple-700 before:to-blue-700
-              before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100"
+            external={project.id === 'golden-earth'}
           >
-            <span className="relative flex items-center gap-2 font-medium">
-              {project.id === 'golden-earth' ? 'Visit Website' : 'Request Preview'}
-              <FiExternalLink className="w-5 h-5 transform transition-transform group-hover:translate-x-1" />
-            </span>
-          </a>
+            {project.id === 'golden-earth' ? 'Visit Website' : 'Request Preview'}
+            <FiExternalLink className="w-5 h-5 transform transition-transform group-hover:translate-x-1" />
+          </GradientButton>
         </div>
 
         {/* Project Details - Updated */}

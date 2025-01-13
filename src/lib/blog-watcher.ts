@@ -2,6 +2,21 @@ import fs from 'fs'
 import path from 'path'
 import { BlogPost } from '@/types/blog'
 import matter from 'gray-matter'
+import { revalidatePath } from 'next/cache'
+
+// Simple internal logger to avoid circular dependencies
+const log = {
+  info: (message: string, ...args: any[]) => {
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`[INFO] ${message}`, ...args)
+    }
+  },
+  error: (message: string, error: unknown) => {
+    if (process.env.NODE_ENV === 'development') {
+      console.error(`[ERROR] ${message}`, error)
+    }
+  }
+}
 
 const BLOG_DIR = path.join(process.cwd(), 'src/content/blog')
 
@@ -36,10 +51,15 @@ export function watchBlogDirectory() {
   if (process.env.NODE_ENV === 'development') {
     initializeBlogDirectory()
 
-    fs.watch(BLOG_DIR, (eventType, filename) => {
-      if (filename && filename.endsWith('.mdx')) {
-        console.log(`Blog post ${filename} was ${eventType}d`)
-        // You could trigger a revalidation here if needed
+    fs.watch(BLOG_DIR, async (eventType, filename) => {
+      if (filename?.endsWith('.mdx')) {
+        try {
+          log.info(`Blog file changed: ${filename}`)
+          await revalidatePath('/blog')
+          log.info('Blog cache revalidated')
+        } catch (error) {
+          log.error('Error processing blog change:', error)
+        }
       }
     })
   }

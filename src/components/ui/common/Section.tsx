@@ -8,22 +8,30 @@ interface SectionProps {
   children: ReactNode
   className?: string
   containerClassName?: string
-  fullWidth?: boolean
+  size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl'
+  id?: string
 }
 
 export function Section({ 
   children, 
-  className,
-  containerClassName,
-  fullWidth = false 
+  className = '',
+  size = 'md',
+  id
 }: SectionProps) {
+  const sizeClasses = {
+    sm: 'min-h-[50vh] py-12',
+    md: 'min-h-[60vh] py-16',
+    lg: 'min-h-[70vh] py-20',
+    xl: 'min-h-[80vh] py-24',
+    '2xl': 'min-h-[90vh] py-32'
+  }
+
   return (
-    <section className={cn('py-16 md:py-24', className)}>
-      {fullWidth ? children : (
-        <Container className={containerClassName}>
-          {children}
-        </Container>
-      )}
+    <section 
+      id={id}
+      className={`w-full flex items-center justify-center ${sizeClasses[size]} ${className}`}
+    >
+      {children}
     </section>
   )
 } 

@@ -52,7 +52,7 @@ export const projects: Project[] = [
 
     The site includes an AI-powered chatbot to assist with inquiries about home specifications, 
     customization options, and sustainability features.`,
-    image: '/images/Golden-Earth.png',
+    image: '/images/golden-earth.png',
     technologies: [
       'Next.js 14',
       'Three.js',

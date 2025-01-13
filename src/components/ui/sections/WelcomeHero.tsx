@@ -105,7 +105,7 @@ export function WelcomeHero() {
               </span>
             </Link>
             <Link
-              href="/contact"
+              href="/about#contact"
               className={`group relative px-8 py-4 rounded-2xl border-2 font-medium
                 overflow-hidden transition-all duration-300 hover:scale-105
                 ${resolvedTheme === 'dark' 

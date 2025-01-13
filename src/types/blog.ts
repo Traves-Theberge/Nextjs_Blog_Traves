@@ -1,3 +1,9 @@
+export interface Author {
+  name: string
+  avatar: string
+  title: string
+}
+
 export interface BlogPost {
   title: string
   slug: string
@@ -6,11 +12,9 @@ export interface BlogPost {
   coverImage: string
   tags: string[]
   content: string
-  author: {
-    name: string
-    avatar: string
-    title: string
-  }
+  author: Author
   readingTime?: string
   featured?: boolean
-} 
+}
+
+export type Post = BlogPost 
