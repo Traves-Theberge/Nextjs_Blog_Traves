@@ -1,38 +1,33 @@
-import React from "react";
-import { cn } from "../../lib/utils";
+import { ReactNode } from 'react'
+
+interface ContainerProps {
+  children: ReactNode
+  size?: 'small' | 'medium' | 'large'
+  width?: 'small' | 'medium' | 'large'
+  className?: string
+}
 
 export const Container = ({
   children,
   size = "medium",
   width = "large",
   className = "",
-  ...props
-}) => {
-  const verticalPadding = {
-    custom: "",
-    small: "py-8",
-    medium: "py-12",
-    large: "py-24",
-    default: "py-12",
-  };
-  const widthClass = {
-    small: "max-w-4xl",
-    medium: "max-w-5xl",
-    large: "max-w-7xl",
-    custom: "",
-  };
+}: ContainerProps) => {
+  const sizeClasses = {
+    small: 'py-4',
+    medium: 'py-8',
+    large: 'py-12'
+  }
+
+  const widthClasses = {
+    small: 'max-w-3xl',
+    medium: 'max-w-5xl',
+    large: 'max-w-7xl'
+  }
 
   return (
-    <div
-      className={cn(
-        widthClass[width],
-        `mx-auto px-6 sm:px-8`,
-        verticalPadding[size],
-        className
-      )}
-      {...props}
-    >
+    <div className={`mx-auto px-4 sm:px-6 lg:px-8 ${sizeClasses[size]} ${widthClasses[width]} ${className}`}>
       {children}
     </div>
-  );
-};
+  )
+}

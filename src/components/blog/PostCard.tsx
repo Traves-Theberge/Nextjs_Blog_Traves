@@ -16,10 +16,14 @@ export const PostCard = ({ post }: { post: Post }) => {
         />
       )}
       <h2 className="text-2xl font-bold">{post.title}</h2>
-      <p className="text-muted-foreground">{post.excerpt}</p>
+      <p className="text-muted-foreground">
+        {post.excerpt || post.description}
+      </p>
       <div className="flex items-center gap-x-4 text-sm text-muted-foreground">
-        <time dateTime={post.date}>{format(new Date(post.date), 'MMMM dd, yyyy')}</time>
-        <span>{post.readingTime}</span>
+        <time dateTime={post.date}>
+          {format(new Date(post.date), 'MMMM dd, yyyy')}
+        </time>
+        {post.readingTime && <span>{post.readingTime}</span>}
       </div>
     </article>
   )

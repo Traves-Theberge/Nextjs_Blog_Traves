@@ -1,62 +1,55 @@
 "use client";
-import React, { useState, useContext } from "react";
-import { GlobalQuery } from "../../tina/__generated__/types";
+
+import React, { useState, useContext, createContext, ReactNode } from "react";
+
+interface GlobalSettings {
+  siteTitle: string;
+  siteDescription?: string;
+  siteUrl?: string;
+  favicon?: string;
+  mainNav?: {
+    name: string;
+    href: string;
+  }[];
+  socialLinks?: {
+    platform: string;
+    url: string;
+  }[];
+}
 
 interface LayoutState {
-  globalSettings: GlobalQuery["global"];
-  setGlobalSettings: React.Dispatch<
-    React.SetStateAction<GlobalQuery["global"]>
-  >;
-  pageData: {};
-  setPageData: React.Dispatch<React.SetStateAction<{}>>;
-  theme: GlobalQuery["global"]["theme"];
+  globalSettings: GlobalSettings;
+  setGlobalSettings: (settings: GlobalSettings) => void;
 }
 
-const LayoutContext = React.createContext<LayoutState | undefined>(undefined);
-
-export const useLayout = () => {
-  const context = useContext(LayoutContext);
-  return (
-    context || {
-      theme: {
-        color: "blue",
-        darkMode: "default",
-      },
-      globalSettings: undefined,
-      pageData: undefined,
-    }
-  );
+const defaultGlobalSettings: GlobalSettings = {
+  siteTitle: "Portfolio & Blog",
+  siteDescription: "Personal portfolio and blog website",
+  mainNav: [
+    { name: "Home", href: "/" },
+    { name: "About", href: "/about" },
+    { name: "Blog", href: "/blog" },
+    { name: "Work", href: "/work" },
+    { name: "Contact", href: "/contact" }
+  ]
 };
 
-interface LayoutProviderProps {
-  children: React.ReactNode;
-  globalSettings: GlobalQuery["global"];
-  pageData: {};
-}
+const LayoutContext = createContext<LayoutState | undefined>(undefined);
 
-export const LayoutProvider: React.FC<LayoutProviderProps> = ({
-  children,
-  globalSettings: initialGlobalSettings,
-  pageData: initialPageData,
-}) => {
-  const [globalSettings, setGlobalSettings] = useState<GlobalQuery["global"]>(
-    initialGlobalSettings
-  );
-  const [pageData, setPageData] = useState<{}>(initialPageData);
-
-  const theme = globalSettings.theme;
+export function LayoutProvider({ children }: { children: ReactNode }) {
+  const [globalSettings, setGlobalSettings] = useState<GlobalSettings>(defaultGlobalSettings);
 
   return (
-    <LayoutContext.Provider
-      value={{
-        globalSettings,
-        setGlobalSettings,
-        pageData,
-        setPageData,
-        theme,
-      }}
-    >
+    <LayoutContext.Provider value={{ globalSettings, setGlobalSettings }}>
       {children}
     </LayoutContext.Provider>
   );
-};
+}
+
+export function useLayout() {
+  const context = useContext(LayoutContext);
+  if (context === undefined) {
+    throw new Error("useLayout must be used within a LayoutProvider");
+  }
+  return context;
+}

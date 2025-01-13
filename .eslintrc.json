@@ -4,5 +4,8 @@
     ],
     "parser": "@typescript-eslint/parser",
     "plugins": ["@typescript-eslint"],
+    "rules": {
+        "react/no-unescaped-entities": "off"
+    },
     "root": true
 }

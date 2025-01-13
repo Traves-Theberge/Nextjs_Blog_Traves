@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import '@/styles/globals.css'
 import { Providers } from '@/components/core/Providers'
 import { ScrollProvider } from '@/providers/ScrollProvider'
+import { LayoutProvider } from '@/components/layout/layout-context'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -44,9 +45,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className={inter.className}>
       <body className="bg-white dark:bg-gray-900">
-        <ScrollProvider>
-          <Providers>{children}</Providers>
-        </ScrollProvider>
+        <LayoutProvider>
+          <ScrollProvider>
+            <Providers>{children}</Providers>
+          </ScrollProvider>
+        </LayoutProvider>
       </body>
     </html>
   )

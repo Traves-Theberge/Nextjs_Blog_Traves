@@ -9,6 +9,7 @@ export interface BlogPost {
   slug: string
   date: string
   description: string
+  excerpt?: string
   coverImage: string
   tags: string[]
   content: string
