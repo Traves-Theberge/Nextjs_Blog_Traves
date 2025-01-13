@@ -17,7 +17,9 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'images.unsplash.com',
       }
-    ]
+    ],
+    formats: ['image/webp'],
+    minimumCacheTTL: 60,
   },
   webpack: (config) => {
     config.module.rules.push({
