@@ -36,7 +36,7 @@ export function HeroSection() {
                 className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 
                   dark:from-blue-400 dark:via-purple-400 dark:to-blue-400 
                   bg-clip-text text-transparent text-6xl md:text-7xl lg:text-8xl 
-                  font-bold tracking-tight leading-none"
+                  font-bold tracking-tight leading-none pl-4"
               >
                 About Me
               </Typography>
@@ -55,6 +55,7 @@ export function HeroSection() {
                 className="text-gray-700 dark:text-gray-300 text-l md:text-2xl 
                   leading-relaxed relative z-10"
               >
+                Hi, My name is Traves Theberge 👋. 
                 I'm an AI Solutions Architect, Web & Software Developer, and Indigenous Technology Advocate. I build scalable,
                 impactful solutions using AI integration, prompt engineering, and web development to help organizations streamline
                 workflows, adapt to change, and build for the future.  Driven by inclusivity and long-term impact, I leverage technology
@@ -75,7 +76,7 @@ export function HeroSection() {
             }}
           >
             <Image
-              src="/images/profile.jpg"
+              src="/images/profile.webp"
               alt="Traves Theberge - Full Stack Developer"
               fill
               className="object-cover"
